@@ -245,6 +245,11 @@ $RECYCLE.BIN/
 #ignore target
 target/
 
+#ignore proporties
+*.properties
+
+*.code-workspace
+
 # Created by https://www.gitignore.io/api/linux
 
 ### Linux ###
