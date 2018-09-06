@@ -4,6 +4,9 @@
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
+		<property name="hibernate.connection.username"></property>
+		<property name="hibernate.connection.password"></property>
+		<property name="hibernate.connection.url"></property>
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<!-- show_sql useful during development, noisy in production -->
 		<property name="hibernate.show_sql">true</property>
@@ -11,7 +14,7 @@
 		<!-- update by default -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- locations of domain object mappings -->
-		<mapping class="com.revature.beans.Category"></mapping>
-		<mapping class="com.revature.beans.Flashcard"></mapping>
+		<mapping class="com.revature.beans.Account"></mapping>
+		<mapping class="com.revature.beans.User"></mapping>
 	</session-factory>
 </hibernate-configuration>
