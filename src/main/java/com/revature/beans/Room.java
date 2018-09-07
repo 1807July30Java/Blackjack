@@ -3,6 +3,7 @@ package com.revature.beans;
 import javax.persistence.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,6 +36,25 @@ public class Room implements Serializable {
 	
 	@Column(name = "MAX_PLAYERS")
 	private int maxPlayers;
+	
+	@Column(name = "CURRENT_STATE")
+	private String currentState;
+	
+	//@Column(name = "CURRENT_PLAYERS")
+	//private List<Player> playersInRoom;
+	
+	//@Column(name = "")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
