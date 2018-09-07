@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1147410840332675471L;
 	
-	
+	public Account() {}
 
 	public Account(String username, String password) {
 		super();
@@ -33,27 +34,20 @@ public class Account implements Serializable {
 		this.password = password;
 		this.isAdmin = isAdmin;
 	}
+	
+	
 
-	public Account(int id, String username, String password, int isAdmin, User user) {
+	public Account(int id, String username, String password, int isAdmin) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.isAdmin = isAdmin;
-		this.user = user;
-	}
-
-	public Account(String username, String password, int isAdmin, User user) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.isAdmin = isAdmin;
-		this.user = user;
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="categorySequence")
-	@SequenceGenerator(allocationSize=1,name="categorySequence",sequenceName="SQ_CATEGORY_PK")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="accountSequence")
+	@SequenceGenerator(allocationSize=1,name="accountSequence",sequenceName="SQ_ACCOUNT_PK")
 	@Column(name="ACCOUNT_ID")
 	private int id;
 	
@@ -67,10 +61,6 @@ public class Account implements Serializable {
 
 	@Column(name = "ISADMIN", nullable = false)
 	private int isAdmin = 0;
-	
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private User user;
-	
 	
 	
 	public int getId() {
@@ -103,14 +93,6 @@ public class Account implements Serializable {
 
 	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	@Override
