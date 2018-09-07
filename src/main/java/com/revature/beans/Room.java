@@ -28,6 +28,10 @@ public class Room implements Serializable {
 	 */
 	private static final long serialVersionUID = -4349272843711618060L;
 	
+	
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomSequence")
 	@SequenceGenerator(allocationSize = 1, name = "roomSequence", sequenceName = "SQ_ROOM_PQ")
