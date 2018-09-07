@@ -12,20 +12,36 @@ public class DeckTest {
 	@Test
 	public void regularDeckHasFiftyTwo() {
 		Deck test = new Deck();
-		assertEquals(test.size(),52);
+		assertEquals(test.size(), 52);
 	}
-	
+
 	@Test
 	public void twoSetDeckHasOneHundredFour() {
 		Deck test = new Deck(2);
-		assertEquals(test.size(),104);
+		assertEquals(test.size(), 104);
+	}
+
+	@Test
+	public void firstCardOfUnshuffledDeck() {
+		// will be the last card place in
+		Deck test = new Deck();
+		Card kingOfSpades = new Card("S", 13);
+		assertEquals(kingOfSpades.getVal(), test.draw().getVal());
+	}
+
+	@Test
+	public void shuffleChangesDeck() {
+		// will be the last card place in
+		Deck test = new Deck();
+		Card kingOfSpades = new Card("S", 13);
+		test.shuffle();
+		assertFalse(kingOfSpades.getVal()==test.draw().getVal());
 	}
 	
 	@Test
-	public void firstCardOfUnshuffledDeck() {
-		//will be the last card place in
+	public void deckReducesInSizeAfterDraw() {
 		Deck test = new Deck();
-		Card kingOfSpades = new Card("S",13);
-		assertEquals(kingOfSpades.getVal(),test.draw().getVal());
+		Card kingOfSpades = test.draw();
+		assertEquals(test.size(),51);
 	}
 }
