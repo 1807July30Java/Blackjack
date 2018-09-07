@@ -1,10 +1,13 @@
 package com.revature.main;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import com.revature.beans.Account;
+import com.revature.beans.User;
+import com.revature.dao.AccountDao;
+import com.revature.dao.AccountDaoImpl;
+import com.revature.dao.UserDao;
+import com.revature.dao.UserDaoImpl;
 import com.revature.util.HibernateUtil;
 
 public class Driver {
@@ -14,21 +17,13 @@ public class Driver {
 		sf.openSession();
 		
 		
+//		AccountDao a = new AccountDaoImpl();
+//		System.out.println(a.getAccounts());
 		Account a = new Account("Grandmaster", "Tep");
-		Session s = sf.openSession();
-		int id = 0;
-		Transaction tx = s.beginTransaction();
-		try {
-			id = (int) s.save(a);
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-
-		s.close();
-		
-		System.out.println(id);
+		User u = new User("firstname","lastname", a);
+		System.out.println(u);
+		UserDao ud = new UserDaoImpl();
+		ud.addUser(u);
 	}
 	
 
