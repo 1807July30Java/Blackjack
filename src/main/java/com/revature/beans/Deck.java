@@ -55,6 +55,5 @@ public class Deck {
 		} else {
 			return null;
 		}
-		
 	}
 }
