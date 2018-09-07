@@ -1,5 +1,8 @@
 package com.revature.repository;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +21,12 @@ public class UserRepository {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	public User getUserById(int id) {
+	@SuppressWarnings("unchecked")
+	public User getUserById(int Accountid) {
 		Session s = sessionFactory.getCurrentSession();
-		User u = (User) s.get(User.class, id);
+		Query q = s.createQuery("from User where account = :accountVar");
+		List<User> ul = q.list();
 		
-		return u;
+		return ul.get(0);
 	}
 }
