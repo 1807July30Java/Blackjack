@@ -16,8 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+enum TABLE_STATE{
+	WAITING, PLAYER_TURN, DEALER_TURN, PLAYER_HIT, PLAYER_STAND, GAME_DONE;
+}
 
 @Entity
 @Table(name = "ROOM")
@@ -28,10 +33,25 @@ public class Room implements Serializable {
 	 */
 	private static final long serialVersionUID = -4349272843711618060L;
 	
-	
-	
-	
-	
+	public Room() {
+		super();
+	}
+
+	public Room(int maxPlayers, String currentState, List<Player> playersInRoom) {
+		super();
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+		this.playersInRoom = playersInRoom;
+	}
+
+	public Room(int id, int maxPlayers, String currentState, List<Player> playersInRoom) {
+		super();
+		this.id = id;
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+		this.playersInRoom = playersInRoom;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomSequence")
 	@SequenceGenerator(allocationSize = 1, name = "roomSequence", sequenceName = "SQ_ROOM_PQ")
@@ -44,21 +64,45 @@ public class Room implements Serializable {
 	@Column(name = "CURRENT_STATE")
 	private String currentState;
 	
-	@Column(name = "CURRENT_PLAYERS")
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Player> playersInRoom;
-	
-	//@Column(name = "")
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getMaxPlayers() {
+		return maxPlayers;
+	}
+
+	public void setMaxPlayers(int maxPlayers) {
+		this.maxPlayers = maxPlayers;
+	}
+
+	public String getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(String currentState) {
+		this.currentState = currentState;
+	}
+
+	public List<Player> getPlayersInRoom() {
+		return playersInRoom;
+	}
+
+	public void setPlayersInRoom(List<Player> playersInRoom) {
+		this.playersInRoom = playersInRoom;
+	}
+
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", maxPlayers=" + maxPlayers + ", currentState=" + currentState + ", playersInRoom="
+				+ playersInRoom + "]";
+	}
 	
 }
