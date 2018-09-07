@@ -86,6 +86,7 @@ public class Player implements Serializable {
 
 	public int getId() {
 		return id;
+		
 	}
 
 	public void setId(int id) {
