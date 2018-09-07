@@ -40,8 +40,8 @@ public class Room implements Serializable {
 	@Column(name = "CURRENT_STATE")
 	private String currentState;
 	
-	//@Column(name = "CURRENT_PLAYERS")
-	//private List<Player> playersInRoom;
+	@Column(name = "CURRENT_PLAYERS")
+	private List<Player> playersInRoom;
 	
 	//@Column(name = "")
 	
