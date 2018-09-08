@@ -74,10 +74,10 @@ public class Player implements Serializable {
 	@Column(name="PLAYER_ID")
 	private int id;
 	
-	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	List<Card> playerHand;
 
-	@OneToOne(mappedBy = "player", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Account userAccount;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

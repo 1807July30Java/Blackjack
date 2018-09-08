@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,14 +34,19 @@ public class Deck {
 	@SequenceGenerator(allocationSize=1,name="deckSequence",sequenceName="SQ_DECK_ID_PK")
 	@Column(name="DECK_ID")
 	private int id;
-	@OneToOne(mappedBy = "deck", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name = "ROOM_ID")
 	private Room room;
 	
+	@OneToMany(mappedBy = "deck", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public List<Card> cards = new ArrayList<Card>();
-
+	
 	public Deck() {
-		init();
+		//init();
 	}
+	
+/*
+	
 	public Deck(int sets) {
 		init(sets);
 	}
@@ -80,4 +87,5 @@ public class Deck {
 			return null;
 		}
 	}
+	*/
 }

@@ -58,7 +58,7 @@ public class Room implements Serializable {
 	@Column(name = "CURRENT_STATE")
 	private String currentState;
 	
-	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "gameRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Player> playersInRoom;
 
 	public int getId() {
