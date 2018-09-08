@@ -4,16 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.beans.Account;
-import com.revature.repository.LoginRepository;
+import com.revature.repository.AccountRepository;
 
-@Service(value="loginService")
-public class LoginService {
+@Service(value="accountService")
+public class AccountService {
 
 	@Autowired
-	LoginRepository lr;
+	AccountRepository ar;
 	
 	
 	public boolean authentication(Account a) {
-		return lr.authentication(a);
+		return ar.authentication(a);
+	}
+	
+	public void addAccount(Account a) {
+		ar.persistAccount(a);
 	}
 }
