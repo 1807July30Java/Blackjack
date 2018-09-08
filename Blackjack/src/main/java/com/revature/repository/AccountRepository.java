@@ -44,4 +44,15 @@ public class AccountRepository {
 		
 	}
 
+
+	@SuppressWarnings("unchecked")
+	public List<Account> getAccounts() {
+		List<Account> al = null;
+		Session s = sessionFactory.getCurrentSession();
+		Query q = s.createQuery("from Account");
+		al = q.list();
+		return al;
+	}
+
+
 }
