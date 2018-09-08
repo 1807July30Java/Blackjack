@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,4 +57,11 @@ public class AccountController {
 		}
 		return resp;
 	}
+	
+	@GetMapping("/all")
+    @ResponseBody
+    public ResponseEntity<List<Account>> getAllAccounts() {
+		System.out.println(accountService.getAllAccounts());
+        return new ResponseEntity<>(accountService.getAllAccounts(), HttpStatus.OK);
+    }
 }
