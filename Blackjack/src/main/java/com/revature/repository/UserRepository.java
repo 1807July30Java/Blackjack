@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
 import com.revature.beans.User;
+import com.revature.util.HibernateUtil;
 
 @Repository(value="userRepository")
 @Transactional
@@ -21,10 +22,14 @@ public class UserRepository {
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	
+	//private SessionFactory sf = HibernateUtil.getSessionFactory();
+	
 	@SuppressWarnings("unchecked")
 	public User getUserById(int Accountid) {
 		Session s = sessionFactory.getCurrentSession();
 		Query q = s.createQuery("from User where account = :accountVar");
+		q.setParameter("accountVar", Accountid);
 		List<User> ul = q.list();
 		
 		return ul.get(0);

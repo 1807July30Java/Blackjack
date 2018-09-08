@@ -15,7 +15,7 @@ import com.revature.beans.Account;
 @Repository(value="loginRepository")
 @Transactional
 @EnableTransactionManagement 
-public class LoginRepository {
+public class AccountRepository {
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -34,6 +34,14 @@ public class LoginRepository {
 			return true;
 		
 		return false;
+	}
+
+
+	public Account persistAccount(Account a) {
+		Session s = sessionFactory.getCurrentSession();
+		s.persist(a);
+		return a;
+		
 	}
 
 }
