@@ -1,20 +1,48 @@
 package com.revature.beans;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 /**
  * The Card class is used to represent a card in a standard set of decks
  * 
  * @author Alan
  *
  */
+@Entity
+@Table(name="DB_CARD")
 public class Card {
 
 	enum Suit {
 		H, D, C, S // heart,diamond,club,spade
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="cardSequence")
+	@SequenceGenerator(allocationSize=1,name="cardSequence",sequenceName="SQ_CARD_ID_PK")
+	@Column(name="CARD_ID")
+	private int id;
+	@Column(name="SUIT")
 	private Suit suit;
+	@Column(name="VAL")
 	private int val;
-
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="PLAYER_ID")
+	private Player playerHand;
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="DECK_ID")
+	private Deck deck;
+	
+	
 	public Card(String suit, int val) {
 		super();
 		this.suit = Suit.valueOf(suit);

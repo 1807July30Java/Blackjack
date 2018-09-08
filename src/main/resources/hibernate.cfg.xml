@@ -16,5 +16,7 @@
 		<!-- locations of domain object mappings -->
 		<mapping class="com.revature.beans.Account"></mapping>
 		<mapping class="com.revature.beans.User"></mapping>
+		<mapping class="com.revature.beans.Player"></mapping>
+		<mapping class="com.revature.beans.Room"></mapping>
 	</session-factory>
 </hibernate-configuration>
