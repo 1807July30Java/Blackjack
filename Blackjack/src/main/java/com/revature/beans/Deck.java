@@ -42,10 +42,9 @@ public class Deck {
 	public List<Card> cards = new ArrayList<Card>();
 	
 	public Deck() {
-		//init();
+		init();
 	}
-	
-/*
+
 	
 	public Deck(int sets) {
 		init(sets);
@@ -87,5 +86,5 @@ public class Deck {
 			return null;
 		}
 	}
-	*/
+	
 }
