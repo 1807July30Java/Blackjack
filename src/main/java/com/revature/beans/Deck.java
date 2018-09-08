@@ -3,13 +3,37 @@ package com.revature.beans;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.revature.beans.Card;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+
+
+
+@Entity
+@Table(name="DECK")
 public class Deck {
 	
 	//Needed for Deck Generation
 	private final String[] suits = {"H","D","C","S"};
 	private final int[] values = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+	
+	//persistence
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="deckSequence")
+	@SequenceGenerator(allocationSize=1,name="deckSequence",sequenceName="SQ_DECK_ID_PK")
+	@Column(name="DECK_ID")
+	private int id;
+	@OneToOne(mappedBy = "deck", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private Room room;
 	
 	public List<Card> cards = new ArrayList<Card>();
 

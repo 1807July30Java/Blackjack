@@ -38,7 +38,11 @@ public class Card {
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="PLAYER_ID")
 	private Player playerHand;
-
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="DECK_ID")
+	private Deck deck;
+	
+	
 	public Card(String suit, int val) {
 		super();
 		this.suit = Suit.valueOf(suit);
