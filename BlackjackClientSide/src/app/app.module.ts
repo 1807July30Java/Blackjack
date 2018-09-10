@@ -6,7 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PlayComponent } from './components/play/play.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     PlayComponent,
-    DashboardComponent
+    DashboardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

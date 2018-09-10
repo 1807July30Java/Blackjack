@@ -1,28 +1,29 @@
 <!-- Registration Form -->
 <div class="register-form">
-  <form action="register" method="post">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h2 class="text-center">Register</h2>
     <div class="form-group">
       <label for="inputUser">Username</label>
-      <input name="username" class="form-control" id="inputUser" placeholder="Username">
+      <input type="text" formControlName="username" class="form-control" id="inputUser" placeholder="Username">
     </div>
     <div class="form-group">
-      <label for="fName" class="cols-sm-2 control-label">First Name</label>
-      <input type="text" class="form-control" name="fName" id="fName" placeholder="First name" />
+      <label for="firstName" class="cols-sm-2 control-label">First Name</label>
+      <input type="text" class="form-control" formControlName="firstName" placeholder="First name" />
     </div>
     <div class="form-group">
-      <label for="lName" class="cols-sm-2 control-label">Last Name</label>
-      <input type="text" class="form-control" name="lName" id="lName" placeholder="Last name" />
+      <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName" placeholder="Last name" />
     </div>
     <div class="form-group">
       <label for="email" class="cols-sm-2 control-label">Email</label>
-      <input type="email" class="form-control" name="email" id="email" placeholder="jdoe@email.com" />
+      <input type="text" class="form-control" formControlName="email" placeholder="jdoe@email.com" />
     </div>
     <div class="form-group">
-      <label for="inputPassword">Password</label>
-      <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+      <label for="password">Password</label>
+      <input formControlName="password" type="password" class="form-control" placeholder="Password">
     </div>
-    <button type="submit" value="register" class="btn btn-primary">Register</button>
-    <a routerLink="/login" class="btn">Login</a>
+    <button [disabled]="loading" class="btn btn-primary">Register</button>
+    <img *ngIf="loading" src=""/>
+    <a [routerLink]="['/login']" class="btn">Cancel</a>
   </form>
 </div>
