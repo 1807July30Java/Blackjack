@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
+import com.revature.beans.Card;
 import com.revature.beans.Room;
 
 
@@ -49,4 +50,22 @@ public class RoomRepository {
 		return rl;
 	}
 
+	public int save(Room r) {
+		Session s = sessionFactory.getCurrentSession();
+		return (int) s.save(r);
+	}
+
+	public Room getRoomById(int id) {
+		Session s = sessionFactory.getCurrentSession();
+		Room r = null;
+		
+		r = (Room) s.get(Room.class, id);
+		return r;
+	}
+
+	public int saveCard(Card c) {
+		Session s = sessionFactory.getCurrentSession();
+		return (int) s.save(c);
+		
+	}
 }

@@ -11,34 +11,37 @@ import com.revature.beans.Card;
 import com.revature.beans.Room;
 import com.revature.repository.RoomRepository;
 
-
-@Service(value="roomService")
+@Service(value = "roomService")
 public class RoomService {
 
 	@Autowired
 	RoomRepository rr;
 
-	private final String[] suits = {"H","D","C","S"};
-	private final int[] values = {1,2,3,4,5,6,7,8,9,10,11,12,13};
-	
+	private final String[] suits = { "H", "D", "C", "S" };
+	private final int[] values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+
 	public void findRoom() {
 		// check if available room
-		Room r =  rr.getOpenRoom();
-		if ( r!= null) {
+		Room r = rr.getOpenRoom();
+		if (r != null) {
 			// room exists
-		}else {
+		} else {
 			// create room
-			
+			int roomId = rr.save(new Room(4, "open"));
+			Room newRoom = rr.getRoomById(roomId);
 			// create set of cards
 			List<Card> deck = new ArrayList<Card>();
-			for(String suit : suits) {
-				for(int value : values) {
-					Card card = new Card(suit,value);
+			for (String suit : suits) {
+				for (int value : values) {
+					Card card = new Card(suit, value);
+					card.setRoom(newRoom);
 					deck.add(card);
 				}
 			}
 			Collections.shuffle(deck);
-			rr.persist(new Room(4, "open", deck));
+			for(Card c :deck) {
+				rr.saveCard(c);
+			}
 		}
 	}
 
