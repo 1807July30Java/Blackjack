@@ -11,45 +11,42 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
+import com.revature.beans.Room;
 
-@Repository(value="accountRepository")
+
+@Repository(value="roomRepository")
 @Transactional
 @EnableTransactionManagement 
-public class AccountRepository {
-	
+public class RoomRepository {
+
 	@Autowired
 	SessionFactory sessionFactory;
-	
-	
-	@SuppressWarnings("unchecked")
-	public boolean authentication(Account a) {
-		List<Account> al = null;
-		Session s = sessionFactory.getCurrentSession();
-		Query q = s.createQuery("from Account where username = :userVar and password = :passVar");
-		q.setParameter("userVar", a.getUsername());
-		q.setParameter("passVar", a.getPassword());
-		al = q.list();
+
+	public Room getOpenRoom() {
 		
-		return !al.isEmpty();
-	}
-
-
-	public Account persistAccount(Account a) {
+		// return the first open session 
 		Session s = sessionFactory.getCurrentSession();
-		s.persist(a);
-		return a;
+		Query q = s.createQuery("from Room where currentState = :stateVar");
+		q.setParameter("stateVar", "open");
+		if(!q.list().isEmpty()) {
+			return (Room)q.list().get(9);
+		}
 		
+		return null;
+
 	}
 
-
-	@SuppressWarnings("unchecked")
-	public List<Account> getAccounts() {
-		List<Account> al = null;
+	public void persist(Room r) {
 		Session s = sessionFactory.getCurrentSession();
-		Query q = s.createQuery("from Account");
-		al = q.list();
-		return al;
+		s.persist(r);
 	}
 
+	public List<Room> getRooms() {
+		List<Room> rl = null;
+		Session s = sessionFactory.getCurrentSession();
+		Query q = s.createQuery("from Room");
+		rl = q.list();
+		return rl;
+	}
 
 }

@@ -40,6 +40,19 @@ public class AccountController {
 
 	}
 
+	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public String handleAccountAutheticationFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
+		System.out.println("form params received " + formParams);
+		Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
+		if (accountService.authentication(a)){
+			return "forward:/static/dashboard.html";
+		}else
+			return null;
+		
+
+	}
+
 	@RequestMapping(value = "/addAccountTest", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> addAccountTest() {
@@ -57,7 +70,6 @@ public class AccountController {
 	@GetMapping("/all")
 	@ResponseBody
 	public ResponseEntity<List<Account>> getAllAccounts() {
-		System.out.println(accountService.getAllAccounts());
 		return new ResponseEntity<>(accountService.getAllAccounts(), HttpStatus.OK);
 	}
 }

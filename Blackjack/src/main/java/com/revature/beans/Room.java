@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,7 +32,18 @@ public class Room implements Serializable {
 		super();
 	}
 
-	public Room(int maxPlayers, String currentState, List<Player> playersInRoom) {
+	
+
+	public Room(int maxPlayers, String currentState, List<Card> cards) {
+		super();
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+		this.cards = cards;
+	}
+
+
+
+	public Room(int maxPlayers, List<Player> playersInRoom, String currentState) {
 		super();
 		this.maxPlayers = maxPlayers;
 		this.currentState = currentState;
@@ -60,6 +72,9 @@ public class Room implements Serializable {
 	
 	@OneToMany(mappedBy = "gameRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Player> playersInRoom;
+	
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	public List<Card> cards = new ArrayList<Card>();
 
 	public int getId() {
 		return id;

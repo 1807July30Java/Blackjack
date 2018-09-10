@@ -43,8 +43,8 @@ public class Card {
 	private Player playerHand;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="DECK_ID")
-	private Deck deck;
+	@JoinColumn(name="ROOM_ID")
+	private Room room;
 	
 	
 	public Card(String suit, int val) {
