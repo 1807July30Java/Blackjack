@@ -1,9 +1,9 @@
-<!-- LOGIN FORM -->
+<!-- LOGIN FORM --> 
 <div class="login-form">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h2 class="text-center">Log in</h2>
     <div class="form-group">
-      <label for="username">Username</label>
+      <label for="username">Username!</label>
       <input formControlName="username" class="form-control" placeholder="Username">
       <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
         <div *ngIf="f.username.errors.required">Username is required</div>

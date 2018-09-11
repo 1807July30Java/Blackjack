@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PlayComponent } from './components/play/play.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     PlayComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
