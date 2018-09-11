@@ -31,18 +31,21 @@ public class Card {
 	@SequenceGenerator(allocationSize=1,name="cardSequence",sequenceName="SQ_CARD_ID_PK")
 	@Column(name="CARD_ID")
 	private int id;
+	
 	@Column(name="SUIT")
 	private Suit suit;
+	
 	@Column(name="VAL")
 	private int val;
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="PLAYER_ID")
 	private Player playerHand;
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="DECK_ID")
-	private Deck deck;
 	
-	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="ROOM_ID")
+	private Room room;
+
 	public Card(String suit, int val) {
 		super();
 		this.suit = Suit.valueOf(suit);
@@ -93,6 +96,15 @@ public class Card {
 
 	}
 
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
 	public void setSuit(Suit suit) {
 		this.suit = suit;
 	}

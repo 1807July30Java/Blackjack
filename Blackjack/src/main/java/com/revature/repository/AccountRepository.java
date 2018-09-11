@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
 
-@Repository(value="loginRepository")
+@Repository(value="accountRepository")
 @Transactional
 @EnableTransactionManagement 
-public class LoginRepository {
+public class AccountRepository {
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -30,10 +30,26 @@ public class LoginRepository {
 		q.setParameter("passVar", a.getPassword());
 		al = q.list();
 		
-		if(!al.isEmpty())
-			return true;
-		
-		return false;
+		return !al.isEmpty();
 	}
+
+
+	public Account persistAccount(Account a) {
+		Session s = sessionFactory.getCurrentSession();
+		s.persist(a);
+		return a;
+		
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Account> getAccounts() {
+		List<Account> al = null;
+		Session s = sessionFactory.getCurrentSession();
+		Query q = s.createQuery("from Account");
+		al = q.list();
+		return al;
+	}
+
 
 }

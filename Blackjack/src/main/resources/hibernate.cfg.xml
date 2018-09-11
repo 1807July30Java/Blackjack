@@ -18,5 +18,6 @@
 		<mapping class="com.revature.beans.User"></mapping>
 		<mapping class="com.revature.beans.Player"></mapping>
 		<mapping class="com.revature.beans.Room"></mapping>
+		<mapping class="com.revature.beans.Deck"></mapping>
 	</session-factory>
 </hibernate-configuration>

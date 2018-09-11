@@ -16,28 +16,37 @@
 	<!-- MVC annotation driven -->
 	<mvc:annotation-driven />
 
-	<!-- data source -->
+	<!-- data source <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="org.h2.Driver" /> <property name="url" 
+		value="jdbc:h2:mem:mydb" /> <property name="username" value="sa" /> <property 
+		name="password" value="" /> </bean> -->
+
+	<!-- data source with oracle sql developer -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:mem:mydb" />
-		<property name="username" value="sa" />
-		<property name="password" value="" />
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@myfriend.crngn7xxknyy.us-east-1.rds.amazonaws.com:1521:orcl" />
+		<property name="username" value="blackjack" />
+		<property name="password" value="c4rds" />
 	</bean>
+
 
 	<!-- session factory -->
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.revature.domain" />
+		<property name="packagesToScan" value="com.revature.beans" />
 		<property name="hibernateProperties">
 			<props>
+
 				<prop key="hibernate.hbm2ddl.auto">
 					create-drop
+
 				</prop>
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.H2Dialect
-				</prop>
+
+				<!-- <prop key="hibernate.dialect"> org.hibernate.dialect.H2Dialect </prop> -->
 			</props>
 		</property>
 	</bean>
