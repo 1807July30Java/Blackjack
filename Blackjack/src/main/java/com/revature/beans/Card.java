@@ -19,18 +19,18 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="DB_CARD")
+@Table(name = "DB_CARD")
 public class Card {
 
-	enum Suit {
-		H, D, C, S // heart,diamond,club,spade
-	}
+	// enum Suit {
+		// H, D, C, S // heart,diamond,club,spade
+		// }
 	
 	public Card() {
 		super();
 	}
 
-	public Card(int id, Suit suit, int val, Player playerHand, Room room) {
+	public Card(int id, String suit, int val, Player playerHand, Room room) {
 		super();
 		this.id = id;
 		this.suit = suit;
@@ -39,7 +39,7 @@ public class Card {
 		this.room = room;
 	}
 
-	public Card(int id, Suit suit, int val) {
+	public Card(int id, String suit, int val) {
 		super();
 		this.id = id;
 		this.suit = suit;
@@ -47,28 +47,28 @@ public class Card {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="cardSequence")
-	@SequenceGenerator(allocationSize=1,name="cardSequence",sequenceName="SQ_CARD_ID_PK")
-	@Column(name="CARD_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cardSequence")
+	@SequenceGenerator(allocationSize = 1, name = "cardSequence", sequenceName = "SQ_CARD_ID_PK")
+	@Column(name = "CARD_ID")
 	private int id;
-	
-	@Column(name="SUIT")
-	private Suit suit;
-	
-	@Column(name="VAL")
+
+	@Column(name = "SUIT")
+	private String suit;
+
+	@Column(name = "VAL")
 	private int val;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="PLAYER_ID")
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "PLAYER_ID")
 	private Player playerHand;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="ROOM_ID")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ROOM_ID")
 	private Room room;
 
 	public Card(String suit, int val) {
 		super();
-		this.suit = Suit.valueOf(suit);
+		this.suit = suit;
 		this.val = val;
 	}
 
@@ -83,7 +83,8 @@ public class Card {
 	/**
 	 * Method to return the "Value" of a card in terms of the game of blackjack.
 	 * 
-	 * @param aceEleven - Is ace considered with value of 11
+	 * @param aceEleven
+	 *            - Is ace considered with value of 11
 	 * @return - the value of the card in the game of blackjack
 	 */
 	public int getValue(boolean aceEleven) {
@@ -96,27 +97,6 @@ public class Card {
 		}
 	}
 
-	public Suit getSuit() {
-		return this.suit;
-	}
-
-	public String suitString() {
-		switch (this.suit) {
-		case H:
-			return "Hearts";
-		case D:
-			return "Diamonds";
-		case C:
-			return "Clubs";
-		case S:
-			return "Spades";
-		default:
-			return "???";
-		}
-
-	}
-
-
 	public Room getRoom() {
 		return room;
 	}
@@ -124,14 +104,19 @@ public class Card {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
-	public void setSuit(Suit suit) {
+
+	public String getSuit() {
+		return suit;
+	}
+
+	public void setSuit(String suit) {
 		this.suit = suit;
 	}
 
 	@Override
 	public String toString() {
-		return "Card [suit=" + this.suitString() + ", val=" + val + "]";
+		return "Card [id=" + id + ", suit=" + suit + ", val=" + val + ", playerHand=" + playerHand + ", room=" + room
+				+ "]";
 	}
 
 }

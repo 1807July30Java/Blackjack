@@ -30,7 +30,7 @@ public class RoomRepository {
 		Query q = s.createQuery("from Room where currentState = :stateVar");
 		q.setParameter("stateVar", "open");
 		if(!q.list().isEmpty()) {
-			return (Room)q.list().get(9);
+			return (Room)q.list().get(0);
 		}
 		
 		return null;

@@ -29,7 +29,8 @@ public class RoomService {
 			// room exists
 		} else {
 			// create room
-			int roomId = rr.save(new Room(4, "open"));
+			// currently set it to 1 player and thus it is closed
+			int roomId = rr.save(new Room(1, "close"));
 			Room newRoom = rr.getRoomById(roomId);
 			// create set of cards
 			List<Card> deck = new ArrayList<Card>();
