@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.revature.beans.Account;
+import com.revature.beans.User;
 import com.revature.repository.AccountRepository;
 
 @Service(value="accountService")
@@ -27,4 +28,8 @@ public class AccountService {
     public List<Account> getAllAccounts() {
         return ar.getAccounts();
     }
+
+	public User getUserByAccount(Account a) {
+		return ar.getUserByAccount(a);
+	}
 }
