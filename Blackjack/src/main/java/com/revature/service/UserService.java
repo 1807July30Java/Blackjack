@@ -16,5 +16,12 @@ public class UserService {
 	public User getUserById(int id) {
 		return ur.getUserById(id);
 	}
+
+
+	public void addUser(User u) {
+		// TODO Auto-generated method stub
+		ur.persist(u);
+		
+	}
 	
 }
