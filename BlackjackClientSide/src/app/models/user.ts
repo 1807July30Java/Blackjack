@@ -4,4 +4,5 @@ export class User {
     lastName: string;
     email:string;
     accountId: number;
+    balance: number;
 }

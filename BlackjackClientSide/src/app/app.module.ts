@@ -9,6 +9,8 @@ import { PlayComponent } from './components/play/play.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PlayerHandComponent } from './components/play/player-hand/player-hand.component';
+import { DealerHandComponent } from './components/play/dealer-hand/dealer-hand.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PlayComponent,
     DashboardComponent,
     NavbarComponent,
+    PlayerHandComponent,
+    DealerHandComponent,
   ],
   imports: [
     BrowserModule,
