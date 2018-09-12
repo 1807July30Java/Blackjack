@@ -26,6 +26,26 @@ public class Card {
 		H, D, C, S // heart,diamond,club,spade
 	}
 	
+	public Card() {
+		super();
+	}
+
+	public Card(int id, Suit suit, int val, Player playerHand, Room room) {
+		super();
+		this.id = id;
+		this.suit = suit;
+		this.val = val;
+		this.playerHand = playerHand;
+		this.room = room;
+	}
+
+	public Card(int id, Suit suit, int val) {
+		super();
+		this.id = id;
+		this.suit = suit;
+		this.val = val;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="cardSequence")
 	@SequenceGenerator(allocationSize=1,name="cardSequence",sequenceName="SQ_CARD_ID_PK")

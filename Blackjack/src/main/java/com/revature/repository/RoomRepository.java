@@ -45,7 +45,7 @@ public class RoomRepository {
 	public List<Room> getRooms() {
 		List<Room> rl = null;
 		Session s = sessionFactory.getCurrentSession();
-		Query q = s.createQuery("from Room");
+		Query q = s.createQuery("select r.id, r.maxPlayers, r.currentState from Room r");
 		rl = q.list();
 		return rl;
 	}
@@ -68,4 +68,16 @@ public class RoomRepository {
 		return (int) s.save(c);
 		
 	}
+	
+	public List<Card> getAllCards(){
+		List<Card> theRoomDeck;
+		Session s = sessionFactory.getCurrentSession();
+		
+		Query q = s.createQuery("select c.id, c.suit, c.val from Card c where c.room.id = 1");
+		theRoomDeck = q.list();
+		
+		return theRoomDeck;
+		
+	}
+
 }

@@ -37,6 +37,13 @@ public class Room implements Serializable {
 		this.maxPlayers = maxPlayers;
 		this.currentState = currentState;
 	}
+	
+	public Room(int id, int maxPlayers, String currentState) {
+		super();
+		this.id = id;
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+	}
 
 	public Room(int maxPlayers, String currentState, List<Card> cards) {
 		super();
@@ -72,11 +79,11 @@ public class Room implements Serializable {
 	@Column(name = "CURRENT_STATE")
 	private String currentState;
 
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<Card> cards = new ArrayList<Card>();
+	
 	@OneToMany(mappedBy = "gameRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Player> playersInRoom;
-
-	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-	public List<Card> cards = new ArrayList<Card>();
 
 	public int getId() {
 		return id;
