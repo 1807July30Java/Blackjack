@@ -34,4 +34,11 @@ public class UserRepository {
 		
 		return ul.get(0);
 	}
+
+
+	public void persist(User u) {
+		Session s = sessionFactory.getCurrentSession();
+		s.persist(u);
+	}
 }
+ 

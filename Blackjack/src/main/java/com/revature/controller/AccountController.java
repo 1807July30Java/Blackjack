@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.revature.beans.Account;
+import com.revature.beans.FormData;
+import com.revature.beans.User;
 import com.revature.service.AccountService;
 
 @Controller("accountController")
@@ -25,11 +27,24 @@ public class AccountController {
 	private AccountService accountService;
 
 	// login path
-	@GetMapping(value = "/login")
+	@GetMapping(value = "/")
 	public String getStaticFlashcardPage() {
-		return "forward:/static/.html";
+		return "forward:static/index.html";
 	}
 
+	//Made this to add accounts
+	//Will need other post requests to be like this
+	//--Sam
+	@RequestMapping(value="/addAccount",method = RequestMethod.POST, consumes="application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<String> addAccount(@RequestBody FormData data) {
+		System.out.println(data);
+		Account a = new Account(data.getUsername(),data.getPassword());
+		accountService.addAccount(a);
+		ResponseEntity<String> resp = null;
+		return resp;
+	}
+	
 	@RequestMapping(value = "/addAccountWithForm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public String handleAccountFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
@@ -41,15 +56,19 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public String handleAccountAutheticationFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
+	@ResponseBody
+	public ResponseEntity<User> handleAccountAutheticationFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
 		System.out.println("form params received " + formParams);
 		Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
-		if (accountService.authentication(a)){
-			return "forward:/static/dashboard.html";
-		}else
-			return null;
 		
+		ResponseEntity<User> resp = null;
+		
+			if (accountService.authentication(a)){
+				User u = accountService.getUserByAccount(a);
+				resp = new ResponseEntity<>(u, HttpStatus.OK);
+				
+			}
+		return resp;
 
 	}
 
