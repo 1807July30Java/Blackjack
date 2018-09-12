@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string){
-    return this.http.post<any>('${config.apiUrl}/checkAuthentication',{ username: username, password: password}).pipe(map(user=> {
+    return this.http.post<any>('/Blackjack/checkAuthentication',{ username: username, password: password}).pipe(map(user=> {
       if(user){
         this.loggedIn.next(true);
         localStorage.setItem('currentUser', JSON.stringify(user));

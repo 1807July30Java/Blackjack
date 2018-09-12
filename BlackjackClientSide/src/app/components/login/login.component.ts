@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  submited = false;
+  submitted = false;
   returnUrl: string;
 
   constructor(
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   get formy() { return this.loginForm.controls}
 
   onSubmit() {
-    this.submited = true;
+    this.submitted = true;
     if (this.loginForm.invalid){
       return;
     }

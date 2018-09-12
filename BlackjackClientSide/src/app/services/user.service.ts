@@ -10,6 +10,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   register(user: User) {
-    return this.http.post('${config.apiUrl}/register',user);
+    return this.http.post('/Blackjack/addAccountWithForm',user);
   }
 }
