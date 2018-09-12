@@ -41,7 +41,7 @@ public class UserController {
 		try {
 			Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
 			int startingBalance = 1000;
-			User u = new User(formParams.getFirst("firstname") , formParams.getFirst("lastname"), startingBalance, a);
+			User u = new User(formParams.getFirst("firstName") , formParams.getFirst("lastName"), startingBalance, a);
 			userService.addUser(u);
 			
 			resp = new ResponseEntity<>("ACCOUNT CREATED SUCCESSFULLY", HttpStatus.OK);
