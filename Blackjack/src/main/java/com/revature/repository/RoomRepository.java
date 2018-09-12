@@ -73,11 +73,20 @@ public class RoomRepository {
 		List<Card> theRoomDeck;
 		Session s = sessionFactory.getCurrentSession();
 		
-		Query q = s.createQuery("select c.id, c.suit, c.val from Card c where c.room.id = 1");
+		Query q = s.createQuery("select c.id, c.suit, c.val from Card c where c.room.id =1");
 		theRoomDeck = q.list();
 		
 		return theRoomDeck;
 		
 	}
-
+	/*
+	public void dealCardsAtGameStart() {
+		Session s = sessionFactory.getCurrentSession();
+		
+		List<Card> theRoomDeck = getAllCards();
+		
+		
+		
+	}
+*/
 }
