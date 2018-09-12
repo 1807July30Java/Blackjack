@@ -20,8 +20,8 @@ import javax.persistence.Table;
 
 
 
-@Entity
-@Table(name="DECK")
+//@Entity
+//@Table(name="DECK")
 public class Deck {
 	
 	//Needed for Deck Generation

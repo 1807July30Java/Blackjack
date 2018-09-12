@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-enum TABLE_STATE{
+enum TABLE_STATE {
 	WAITING, PLAYER_TURN, DEALER_TURN, PLAYER_HIT, PLAYER_STAND, GAME_DONE;
 }
 
@@ -26,12 +27,25 @@ public class Room implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4349272843711618060L;
-	
+
 	public Room() {
 		super();
 	}
 
-	public Room(int maxPlayers, String currentState, List<Player> playersInRoom) {
+	public Room(int maxPlayers, String currentState) {
+		super();
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+	}
+
+	public Room(int maxPlayers, String currentState, List<Card> cards) {
+		super();
+		this.maxPlayers = maxPlayers;
+		this.currentState = currentState;
+		this.cards = cards;
+	}
+
+	public Room(int maxPlayers, List<Player> playersInRoom, String currentState) {
 		super();
 		this.maxPlayers = maxPlayers;
 		this.currentState = currentState;
@@ -51,15 +65,18 @@ public class Room implements Serializable {
 	@SequenceGenerator(allocationSize = 1, name = "roomSequence", sequenceName = "SQ_ROOM_PQ")
 	@Column(name = "ROOM_ID")
 	private int id;
-	
+
 	@Column(name = "MAX_PLAYERS")
 	private int maxPlayers;
-	
+
 	@Column(name = "CURRENT_STATE")
 	private String currentState;
-	
+
 	@OneToMany(mappedBy = "gameRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Player> playersInRoom;
+
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+	public List<Card> cards = new ArrayList<Card>();
 
 	public int getId() {
 		return id;
@@ -93,10 +110,18 @@ public class Room implements Serializable {
 		this.playersInRoom = playersInRoom;
 	}
 
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", maxPlayers=" + maxPlayers + ", currentState=" + currentState + ", playersInRoom="
 				+ playersInRoom + "]";
 	}
-	
+
 }

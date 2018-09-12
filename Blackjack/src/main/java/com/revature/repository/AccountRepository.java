@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
 
-@Repository(value="loginRepository")
+@Repository(value="accountRepository")
 @Transactional
 @EnableTransactionManagement 
 public class AccountRepository {
@@ -30,10 +30,7 @@ public class AccountRepository {
 		q.setParameter("passVar", a.getPassword());
 		al = q.list();
 		
-		if(!al.isEmpty())
-			return true;
-		
-		return false;
+		return !al.isEmpty();
 	}
 
 

@@ -1,7 +1,5 @@
 package com.revature.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +15,13 @@ public class UserService {
 	
 	public User getUserById(int id) {
 		return ur.getUserById(id);
+	}
+
+
+	public void addUser(User u) {
+		// TODO Auto-generated method stub
+		ur.persist(u);
+		
 	}
 	
 }
