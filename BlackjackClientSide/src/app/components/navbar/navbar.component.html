@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header text-center">&spades;&hearts;{{title}}&diams;&clubs;</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light breadcrumb">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="dash">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/play">Play</a>
+          </li>
+          <!--add menu items if necessary-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li *ngIf="!(isLoggedIn | async)"><a routerLink="login"><button class="btn">Login/Register</button></a></li>
+          <li *ngIf="isLoggedIn | async"><a routerLInk="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
