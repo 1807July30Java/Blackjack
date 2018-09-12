@@ -26,9 +26,9 @@ public class AccountController {
 	private AccountService accountService;
 
 	// login path
-	@GetMapping(value = "/login")
+	@GetMapping(value = "/")
 	public String getStaticFlashcardPage() {
-		return "forward:/static/.html";
+		return "forward:static/index.html";
 	}
 
 	@RequestMapping(value = "/addAccountWithForm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
