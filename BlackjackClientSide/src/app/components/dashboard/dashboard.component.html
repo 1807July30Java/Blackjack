@@ -1,6 +1,25 @@
 <div class="row">
 
-  <div class="col-lg-3">
+  <div class="col-lg-6">
+    <div class="card bg-light">
+      <div class="card-header">
+        About BlackJack Online
+      </div>
+      <div class="card-body">
+        <p> Blackjack (aka 21) is a card game involving a standard deck of playing cards.
+          Each card has a value going from one to 11.
+          The cards 2 through 10 are worth their respective numbers. Kings, queens, and jacks are each worth
+          10.
+          Aces are a special case and may be used as either a 1 or an 11. </p>
+        <p>The player is given 2 cards to start, and through a process of drawing (hitting) the player
+          must attempt to get the sum value of all their cards to as close to 21 wihtout going over.</p>
+      </div>
+      <div class="card-footer announcement-bottom">
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLoggedIn | async" class="col-lg-3">
     <div class="card bg-light">
       <div class="card-header">
         <i class="fas fa-user"></i>

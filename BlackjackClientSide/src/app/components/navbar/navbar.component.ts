@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -10,18 +10,13 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  isLoggedIn: boolean;
+  isLoggedIn: Observable<boolean>;
 
 
   constructor(private authservice: AuthService) { }
 
   ngOnInit() {
-    if(localStorage.getItem('currentUser')){
-      this.isLoggedIn = true;
-    }
-    else{
-      this.isLoggedIn = false;
-    }
+    this.isLoggedIn = this.authservice.isLoggedIn;
   }
 
 }

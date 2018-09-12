@@ -17,8 +17,8 @@
           <!--add menu items if necessary-->
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li *ngIf="isLoggedIn == false"><a routerLink="login">Login/Register<i class="fas fa-sign-out-alt"></i></a></li>
-          <li *ngIf="isLoggedIn"><a routerLInk="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+          <li *ngIf="!(isLoggedIn | async)"><a routerLink="login">Login/Register</a></li>
+          <li *ngIf="isLoggedIn | async"><a routerLInk="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
         </ul>
       </div>
     </nav>
