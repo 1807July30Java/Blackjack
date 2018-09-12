@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.revature.beans.Account;
+import com.revature.beans.FormData;
 import com.revature.beans.User;
 import com.revature.service.AccountService;
 
@@ -31,6 +32,19 @@ public class AccountController {
 		return "forward:static/index.html";
 	}
 
+	//Made this to add accounts
+	//Will need other post requests to be like this
+	//--Sam
+	@RequestMapping(value="/addAccount",method = RequestMethod.POST, consumes="application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<String> addAccount(@RequestBody FormData data) {
+		System.out.println(data);
+		Account a = new Account(data.getUsername(),data.getPassword());
+		accountService.addAccount(a);
+		ResponseEntity<String> resp = null;
+		return resp;
+	}
+	
 	@RequestMapping(value = "/addAccountWithForm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public String handleAccountFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
