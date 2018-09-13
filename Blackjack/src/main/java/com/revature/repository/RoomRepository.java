@@ -153,20 +153,50 @@ public class RoomRepository {
 		}
 
 		int roomId = p.getGameRoom().getId();
-		
+
 		Query q = s.createQuery("from Card c where c.room.id = :roomIdVar and c.player = null");
 		q.setParameter("roomIdVar", roomId);
 		Card c1 = (Card) q.list().get(0);
 		c1.setPlayer(p);
-		
+
 		playerHand.add(c1);
 		p.setPlayerHand(playerHand);
 		return new Card(c1.getId(), c1.getSuit(), c1.getVal());
 	}
 
+	public int getDealerScore(List<Card> dealerHand) {
+
+		int score = 0;
+
+		int aceCount = 0;
+		int acePointCount = 0;
+		for (Card card : dealerHand) {
+			if (card.getVal() == 1) {
+				aceCount++;
+			}
+
+			score += card.getValue(false);
+		}
+		
+		for (int i = 0; i < aceCount; i++) { 
+			if(score + 11 <= 21) {
+				score += 11;
+				acePointCount++;
+			}else if(acePointCount > 0 ) {
+				score -= 10;
+			}else {
+				score ++;
+			}
+
+		}
+
+		return score;
+	}
+
 	public List<Card> updateDealerHand(Player p) {
 		Session s = sessionFactory.getCurrentSession();
 		p = (Player) s.get(Player.class, p.getId());
+		boolean hasAce = false;
 
 		List<Card> playerHand = new ArrayList<Card>();
 		try {
@@ -176,16 +206,29 @@ public class RoomRepository {
 		}
 
 		int roomId = p.getGameRoom().getId();
-		
+
 		Query q = s.createQuery("from Card c where c.room.id = :roomIdVar and c.player = null");
 		q.setParameter("roomIdVar", roomId);
-		
-		int score = 0;
-		
-		for(Card card : playerHand) {
-			
+
+		// check current hand (2 cards)
+		int score = getDealerScore(playerHand);
+
+		// get cards until you hit score>=16
+		int counterCard = 0;
+		while (score >= 16) {
+			Card c = (Card) q.list().get(counterCard);
+			c.setPlayer(p);
+
+			playerHand.add(c);
+			p.setPlayerHand(playerHand);
+
+			score = getDealerScore(playerHand);
+			counterCard++;
 		}
-		return null;
+
+		// Once we know whether the dealer has an ace or not, we pass in hasAce and the
+		// dealer hand to update the dealer hand properly.
+		return playerHand;
 	}
 
 }
