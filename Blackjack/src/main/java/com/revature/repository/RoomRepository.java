@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Account;
 import com.revature.beans.Card;
+import com.revature.beans.Player;
 import com.revature.beans.Room;
 
 
@@ -73,20 +74,44 @@ public class RoomRepository {
 		List<Card> theRoomDeck;
 		Session s = sessionFactory.getCurrentSession();
 		
-		Query q = s.createQuery("select c.id, c.suit, c.val from Card c where c.room.id =1");
+		Query q = s.createQuery("select c.id, c.suit, c.val from Card c where c.room.id = 1");
 		theRoomDeck = q.list();
 		
 		return theRoomDeck;
 		
 	}
-	/*
-	public void dealCardsAtGameStart() {
+	
+	public List<Player> getPlayers(){
+		List<Player> players;
 		Session s = sessionFactory.getCurrentSession();
 		
-		List<Card> theRoomDeck = getAllCards();
+		Query q = s.createQuery("select p.id, p.userAccount.username from Player p where p.gameRoom.id = 4");
+		players = q.list();
 		
-		
+		return players;
 		
 	}
-*/
+	
+	public int savePlayerToRoom(Player p) {	
+		Session s = sessionFactory.getCurrentSession();
+		return (int) s.save(p);
+	
+	}
+		
+	public List<Card> dealCards() {
+		Session s = sessionFactory.getCurrentSession();
+		
+		
+		
+		
+		List<Card> theRoomDeck = getAllCards();
+		List<Card> playerHand = null;
+		
+		
+		
+		
+		
+		return playerHand;
+	}
+
 }

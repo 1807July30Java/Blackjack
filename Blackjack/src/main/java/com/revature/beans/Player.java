@@ -29,6 +29,17 @@ public class Player implements Serializable {
 	public Player() {
 		super();
 	}
+	
+	public Player(Room gameRoom) {
+		super();
+		this.gameRoom = gameRoom;
+	}
+
+	public Player(Account userAccount, Room gameRoom) {
+		super();
+		this.userAccount = userAccount;
+		this.gameRoom = gameRoom;
+	}
 
 	public Player(int id) {
 		super();

@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 enum TABLE_STATE {
 	WAITING, PLAYER_TURN, DEALER_TURN, PLAYER_HIT, PLAYER_STAND, GAME_DONE;
 }
@@ -30,6 +33,11 @@ public class Room implements Serializable {
 
 	public Room() {
 		super();
+	}
+	
+	public Room(String currentState) {
+		super();
+		this.currentState = currentState;
 	}
 
 	public Room(int maxPlayers, String currentState) {

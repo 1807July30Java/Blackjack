@@ -36,48 +36,5 @@ public class PlayerRepository {
 		  throw t;
 		}
 		
-	}
-	/*
-	public void updatePlayerHand(Card c) {
-		
-		Session s = sessionFactory.getCurrentSession();
-		Transaction transaction = s.beginTransaction();
-		
-		try {
-			s.merge();
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-		}
-
-		
-		
-	}
-	
-	*/
-	
-	
-	/*
-	public void updatePlayerUserBalance(Player p) {
-		
-		Session s = sessionFactory.getCurrentSession();
-		Transaction transaction = s.beginTransaction();
-		
-		try {
-			s.merge(p);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-		}
-
-		s.close();
-		
-		
-	}
-	*/
-	
-	
-	
+	}	
 }

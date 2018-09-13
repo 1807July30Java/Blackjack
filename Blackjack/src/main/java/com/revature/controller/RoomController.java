@@ -7,12 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.revature.beans.Account;
 import com.revature.beans.Card;
+import com.revature.beans.FormData;
+import com.revature.beans.Player;
 import com.revature.beans.Room;
 import com.revature.service.RoomService;
 
@@ -23,11 +27,13 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 	
-	@GetMapping(value = "/room")
-	public String getStaticFlashcardPage() {
-		
+	//@GetMapping(value = "/room")
+	@GetMapping(value="/joinRoom", consumes="application/json")//added
+	@ResponseStatus(HttpStatus.OK)//added
+	public String getStaticFlashcardPage(@RequestBody FormData data) {
+		Account a = new Account(data.getUsername(), data.getPassword());
 		// find a room for the player
-		roomService.findRoom();
+		roomService.joinRoom(a);
 		
 		return "forward:/static/room.html";
 	}
@@ -46,6 +52,24 @@ public class RoomController {
 		//System.out.println(roomService.getAllCards());
 		return new ResponseEntity<>(roomService.getAllCards(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/allPlayersInRoom")
+	@ResponseBody
+	public ResponseEntity<List<Player>> playerJoin() {
+		//System.out.println(roomService.getAllCards());
+		return new ResponseEntity<>(roomService.getAllPlayers(), HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/dealCards", method = RequestMethod.POST, consumes="application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody FormData data) {
+		//System.out.println(data);
+		Account a = new Account(data.getUsername(), data.getPassword());
+		return new ResponseEntity<>(roomService.dealCards(a), HttpStatus.OK);
+	}
+	
+	
 	
 	
 	/*
