@@ -196,7 +196,6 @@ public class RoomRepository {
 	public List<Card> updateDealerHand(Player p) {
 		Session s = sessionFactory.getCurrentSession();
 		p = (Player) s.get(Player.class, p.getId());
-		boolean hasAce = false;
 
 		List<Card> playerHand = new ArrayList<Card>();
 		try {
@@ -213,22 +212,26 @@ public class RoomRepository {
 		// check current hand (2 cards)
 		int score = getDealerScore(playerHand);
 
+		List<Card> returnHand = new ArrayList<Card>();
 		// get cards until you hit score>=16
 		int counterCard = 0;
-		while (score >= 16) {
+		System.out.println("Score: " + score);
+		while (score <= 16) {
 			Card c = (Card) q.list().get(counterCard);
 			c.setPlayer(p);
 
+			returnHand.add(new Card(c.getId(),c.getSuit(),c.getVal()));
 			playerHand.add(c);
 			p.setPlayerHand(playerHand);
 
 			score = getDealerScore(playerHand);
 			counterCard++;
 		}
+		s.update(p);
 
 		// Once we know whether the dealer has an ace or not, we pass in hasAce and the
 		// dealer hand to update the dealer hand properly.
-		return playerHand;
+		return returnHand;
 	}
 
 }
