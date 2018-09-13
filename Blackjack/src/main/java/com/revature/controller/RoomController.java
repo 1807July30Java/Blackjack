@@ -42,9 +42,9 @@ public class RoomController {
 	@PostMapping(value="/joinRoom", consumes="application/json")//added
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public ResponseEntity<Player> getStaticFlashcardPage(@RequestBody User u) {
+	public ResponseEntity<List<Player>> getStaticFlashcardPage(@RequestBody User u) {
 		// find a room for the player
-		roomService.joinRoom(u);
+		roomService.joinRoom(u); 
 		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	
@@ -71,18 +71,37 @@ public class RoomController {
 	}
 	
 	
-	@PostMapping(value="/dealCards", consumes="application/json")
+	@PostMapping(value="/dealPlayerCards", consumes="application/json")
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	//@RequestBody Player p
 	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody Player p) {
-		//System.out.println(data);
-		//System.out.println(roomService.dealCards(p));
 		return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/dealDealerCards", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<List<Card>> updateDealerHandAtStart(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/stay", consumes="application/json")
+	@ResponseBody
+	public ResponseEntity<List<Card>> stay(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.stay(p), HttpStatus.OK);
 	}
 	
 	
 	
+	@PostMapping(value="/hit", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<Card> playerHit(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.hit(p), HttpStatus.OK);
+	}
 	
 	/*
 	@RequestMapping(value = "/dealCardsAtStart")

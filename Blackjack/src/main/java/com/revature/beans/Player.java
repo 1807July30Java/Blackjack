@@ -73,6 +73,16 @@ public class Player implements Serializable {
 		this.user = user;
 		this.gameRoom = gameRoom;
 	}
+	
+	
+
+	public Player(Room gameRoom, int isDealer) {
+		super();
+		this.gameRoom = gameRoom;
+		this.isDealer = isDealer;
+	}
+
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="playerIdSequence")
