@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.revature.beans.Card;
 import com.revature.beans.Player;
@@ -25,7 +26,7 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 	
-	
+	/*
 	@GetMapping(value = "/room")
 	//@PostMapping(value="/joinRoom", consumes="application/json")//added
 	//@ResponseStatus(HttpStatus.OK)//added
@@ -35,6 +36,16 @@ public class RoomController {
 		roomService.joinRoom(u);
 		
 		return "forward:/static/room.html";
+	}
+	*/
+	
+	@PostMapping(value="/joinRoom", consumes="application/json")//added
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public ResponseEntity<Player> getStaticFlashcardPage(@RequestBody User u) {
+		// find a room for the player
+		roomService.joinRoom(u);
+		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	
 	
