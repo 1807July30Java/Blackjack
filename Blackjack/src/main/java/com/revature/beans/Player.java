@@ -34,6 +34,12 @@ public class Player implements Serializable {
 		super();
 		this.id = id;
 	}
+	
+	public Player(User user, Room gameRoom) {
+		super();
+		this.user = user;
+		this.gameRoom = gameRoom;
+	}
 
 	public Player(List<Card> playerHand) {
 		super();
@@ -83,6 +89,9 @@ public class Player implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ROOM_ID")
 	private Room gameRoom;
+	
+	@Column(name="IS_DEALER")
+	private int isDealer = 0;
 
 	public int getId() {
 		return id;
@@ -116,11 +125,11 @@ public class Player implements Serializable {
 	public void setGameRoom(Room gameRoom) {
 		this.gameRoom = gameRoom;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", playerHand=" + playerHand + ", user=" + user + ", gameRoom="
-				+ gameRoom + "]";
+		return "Player [id=" + id + ", playerHand=" + playerHand + ", user=" + user + ", gameRoom=" + gameRoom
+				+ ", isDealer=" + isDealer + "]";
 	}
 	
 }
