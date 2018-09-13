@@ -31,7 +31,7 @@ public class RoomController {
 	@GetMapping(value="/joinRoom", consumes="application/json")//added
 	@ResponseStatus(HttpStatus.OK)//added
 	public String getStaticFlashcardPage(@RequestBody FormData data) {
-		Account a = new Account(data.getUsername(), data.getPassword());
+		Account a = new Account(data.getFirstname(), data.getLastname());
 		// find a room for the player
 		roomService.joinRoom(a);
 		

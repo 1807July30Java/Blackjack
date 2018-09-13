@@ -101,7 +101,7 @@ public class RoomRepository {
 	public List<Card> dealCards() {
 		Session s = sessionFactory.getCurrentSession();
 		
-		
+		Query q 
 		
 		
 		List<Card> theRoomDeck = getAllCards();
