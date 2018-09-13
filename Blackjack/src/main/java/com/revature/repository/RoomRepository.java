@@ -178,11 +178,11 @@ public class RoomRepository {
 			score += card.getValue(false);
 		}
 		
-		for (int i = 0; i < aceCount; i++) { 
-			if(score + 11 <= 21) {
-				score += 11;
-				acePointCount++;
-			}else if(acePointCount > 0 ) {
+		for (int i = 0; i < aceCount; i++) { //for all our aces
+			if(score + 11 <= 21) { //if we're not busting
+				score += 11; //add full ace value
+				acePointCount++; //and increase acePointCount
+			}else if(acePointCount > 0 && score + 1 > 21) { //if acePointCount is at least 1 AND the score + 1 is greater than 21
 				score -= 10;
 			}else {
 				score ++;
