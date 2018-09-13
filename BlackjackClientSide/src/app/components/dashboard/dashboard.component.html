@@ -27,9 +27,9 @@
       </div>
       <!-- THIS SHOULD BE DONE WITH DATA BINDING -->
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" id="profileId">{{localStorage.currentUser.id}}</li>
-        <li class="list-group-item" id="profileName">Bobby McBobface</li>
-        <li class="list-group-item" id="profileEmail">yourmom@123.com</li>
+        <li class="list-group-item" id="profileId">{{currentUser.id}}</li>
+        <li class="list-group-item" id="profileName">{{currentUser.firstName}} {{currentUser.lastName}}</li>
+        <li class="list-group-item" id="profileEmail">${{currentUser.balance}}</li>
       </ul>
       <div class="card-footer announcement-bottom">
         <a href="updateinfo">
