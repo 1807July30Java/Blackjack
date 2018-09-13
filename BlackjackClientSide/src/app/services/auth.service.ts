@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { User } from '../models/user';
+import { Account } from '../models/account';
 
 
 @Injectable({
@@ -10,19 +10,21 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  private loggedIn = (localStorage.getItem("currentUser"))? new BehaviorSubject<boolean>(true) :new BehaviorSubject<boolean>(false);
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string){
-    return this.http.post<any>('/Blackjack/checkAuthentication',{ username: username, password: password}).pipe(map(user=> {
+  login(account:Account){
+    console.log("Account = "+ account);
+    return this.http.post<any>('/Blackjack/checkAuthentication',account).pipe(map(user=> {
       if(user){
         this.loggedIn.next(true);
         localStorage.setItem('currentUser', JSON.stringify(user));
       } 
+      console.log(user);
       return user;
     }));
   }
