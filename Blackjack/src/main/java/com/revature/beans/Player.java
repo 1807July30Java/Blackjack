@@ -29,21 +29,16 @@ public class Player implements Serializable {
 	public Player() {
 		super();
 	}
-	
-	public Player(Room gameRoom) {
-		super();
-		this.gameRoom = gameRoom;
-	}
-
-	public Player(Account userAccount, Room gameRoom) {
-		super();
-		this.userAccount = userAccount;
-		this.gameRoom = gameRoom;
-	}
 
 	public Player(int id) {
 		super();
 		this.id = id;
+	}
+	
+	public Player(User user, Room gameRoom) {
+		super();
+		this.user = user;
+		this.gameRoom = gameRoom;
 	}
 
 	public Player(List<Card> playerHand) {
@@ -57,25 +52,25 @@ public class Player implements Serializable {
 		this.playerHand = playerHand;
 	}
 
-	public Player(int id, List<Card> playerHand, Account userAccount) {
+	public Player(int id, List<Card> playerHand, User user) {
 		super();
 		this.id = id;
 		this.playerHand = playerHand;
-		this.userAccount = userAccount;
+		this.user = user;
 	}
 
-	public Player(int id, List<Card> playerHand, Account userAccount, Room gameRoom) {
+	public Player(int id, List<Card> playerHand, User user, Room gameRoom) {
 		super();
 		this.id = id;
 		this.playerHand = playerHand;
-		this.userAccount = userAccount;
+		this.user = user;
 		this.gameRoom = gameRoom;
 	}
 
-	public Player(List<Card> playerHand, Account userAccount, Room gameRoom) {
+	public Player(List<Card> playerHand, User user, Room gameRoom) {
 		super();
 		this.playerHand = playerHand;
-		this.userAccount = userAccount;
+		this.user = user;
 		this.gameRoom = gameRoom;
 	}
 
@@ -89,7 +84,7 @@ public class Player implements Serializable {
 	List<Card> playerHand;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private Account userAccount;
+	private User user;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ROOM_ID")
@@ -112,12 +107,12 @@ public class Player implements Serializable {
 		this.playerHand = playerHand;
 	}
 
-	public Account getUserAccount() {
-		return userAccount;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserAccount(Account userAccount) {
-		this.userAccount = userAccount;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Room getGameRoom() {
@@ -130,7 +125,7 @@ public class Player implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", playerHand=" + playerHand + ", userAccount=" + userAccount + ", gameRoom="
+		return "Player [id=" + id + ", playerHand=" + playerHand + ", user=" + user + ", gameRoom="
 				+ gameRoom + "]";
 	}
 	

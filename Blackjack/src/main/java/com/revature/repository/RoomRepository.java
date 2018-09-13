@@ -97,7 +97,7 @@ public class RoomRepository {
 		return (int) s.save(p);
 	
 	}
-		
+		/*
 	public List<Card> dealCards() {
 		Session s = sessionFactory.getCurrentSession();
 		
@@ -113,5 +113,5 @@ public class RoomRepository {
 		
 		return playerHand;
 	}
-
+*/
 }

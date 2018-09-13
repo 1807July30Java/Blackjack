@@ -18,6 +18,7 @@ import com.revature.beans.Card;
 import com.revature.beans.FormData;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
+import com.revature.beans.User;
 import com.revature.service.RoomService;
 
 @Controller("roomController")
@@ -31,9 +32,9 @@ public class RoomController {
 	@GetMapping(value="/joinRoom", consumes="application/json")//added
 	@ResponseStatus(HttpStatus.OK)//added
 	public String getStaticFlashcardPage(@RequestBody FormData data) {
-		Account a = new Account(data.getFirstname(), data.getLastname());
+		User u = new User(data.getFirstname(), data.getLastname());
 		// find a room for the player
-		roomService.joinRoom(a);
+		roomService.joinRoom(u);
 		
 		return "forward:/static/room.html";
 	}
@@ -60,7 +61,7 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.getAllPlayers(), HttpStatus.OK);
 	}
 	
-	
+	/*
 	@RequestMapping(value="/dealCards", method = RequestMethod.POST, consumes="application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody FormData data) {
@@ -68,7 +69,7 @@ public class RoomController {
 		Account a = new Account(data.getUsername(), data.getPassword());
 		return new ResponseEntity<>(roomService.dealCards(a), HttpStatus.OK);
 	}
-	
+	*/
 	
 	
 	

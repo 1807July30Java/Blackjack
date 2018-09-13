@@ -14,6 +14,7 @@ import com.revature.beans.Account;
 import com.revature.beans.Card;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
+import com.revature.beans.User;
 import com.revature.repository.RoomRepository;
 
 @Service(value = "roomService")
@@ -52,11 +53,11 @@ public class RoomService {
 		}
 	}
 	
-	public void joinRoom(Account a) {
+	public void joinRoom(User u) {
 		
 		Room r = findRoom();
 		
-		Player p = new Player(a, r);
+		Player p = new Player(u, r);
 		
 		rr.savePlayerToRoom(p);
 		
@@ -73,10 +74,11 @@ public class RoomService {
 	public List<Card> getAllCards() {
 		return rr.getAllCards();
 	}
-
+/*
 	public List<Card> dealCards(Account a) {
 		
 		return rr.dealCards();
 		
 	}
+*/
 }
