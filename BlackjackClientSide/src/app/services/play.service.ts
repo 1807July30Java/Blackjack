@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { Player } from '../models/player';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class PlayService {
 
   playersInGame(u: User) {
     this.ready.next(true);
-    console.log("Sending User: " + u);
+    console.log("Sending User: " + u.firstName);
     /*
     return this.http.post<any>('/Blackjack/play/joinRoom',u).pipe(map(players {}=> {
       console.log(list);
@@ -45,6 +46,14 @@ export class PlayService {
       return list;
     }));
     */
-    return this.http.post('/Blackjack/play/joinRoom',u).pipe(tap(players => console.log(players)));
+    return this.http.post<any>('/Blackjack/play/joinRoom', u).pipe(map(user => {
+      if (user) {
+        console.log("asfdfdsafdsafdsafdsa");
+        localStorage.setItem('currentplayer', JSON.stringify(user));
+      }
+      console.log(user);
+      return user;
+    }));
+
   }
 }

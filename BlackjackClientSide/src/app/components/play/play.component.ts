@@ -20,11 +20,18 @@ export class PlayComponent implements OnInit {
     this.playing = this.playService.isPlaying;
     this.readyToPlay = this.playService.isReadyToPlay;
   }
-  startPlaying(){
+  startPlaying() {
     this.playService.startGame();
   }
-  readyUp(){
+  readyUp() {
     console.log("about to run Players in game");
-    this.playService.playersInGame(JSON.parse(localStorage.getItem("currentUser")));
+    this.playService.playersInGame(JSON.parse(localStorage.getItem("currentUser"))).subscribe(
+      data => {
+        console.log("ur a penis");
+      },
+      error => {
+        //This is where i'd put my alert service... IF I HAD ONE!
+
+      });
   }
 }
