@@ -4,6 +4,6 @@ export class Card {
     id: number;
     suit: string;
     val: string;
-    playerHand: Player;
+    player: Player;
     room: number;
 }

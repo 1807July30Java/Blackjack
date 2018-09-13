@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading=true;
-    this.authenticationService.login(this.formy.username.value,this.formy.password.value).pipe(first()).subscribe(
+    this.authenticationService.login(this.loginForm.value).pipe(first()).subscribe(
       data => {
         this.router.navigate([this.returnUrl]);
       },
