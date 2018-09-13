@@ -30,8 +30,6 @@ public class Account implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 	
-	
-
 	public Account(int id, String username, String password, int isAdmin) {
 		super();
 		this.id = id;
