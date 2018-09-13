@@ -131,8 +131,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", suit=" + suit + ", val=" + val + ", room=" + room
-				+ "]";
+		return "Card [id=" + id + ", suit=" + suit + ", val=" + val +"]";
 	}
 
 }

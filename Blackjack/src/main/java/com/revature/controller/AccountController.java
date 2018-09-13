@@ -26,6 +26,7 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+
 	@Autowired
 	private UserService userService;
 
@@ -43,8 +44,8 @@ public class AccountController {
 	public ResponseEntity<String> addAccount(@RequestBody FormData data) {
 		System.out.println(data);
 		Account a = new Account(data.getUsername(),data.getPassword());
-		accountService.addAccount(a);
-		User u = new User(data.getFirstName(),data.getLastName(),a);
+		int startingBalance = 1000;
+		User u = new User(data.getFirstName(), data.getLastName(), startingBalance, a);
 		userService.addUser(u);
 		ResponseEntity<String> resp = null;
 		return resp;

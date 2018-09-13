@@ -75,9 +75,9 @@ public class RoomService {
 		return rr.getAllCards();
 	}
 
-	public void dealCards(Player p) {
+	public List<Card> dealCards(Player p) {
 		
-		rr.dealCards(p);
+		return rr.dealCards(p);
 		
 	}
 

@@ -70,7 +70,7 @@ public class RoomController {
 	public void updatePlayerHandAtStart() {
 		//System.out.println(data);
 		Player p = new Player(4);
-		roomService.dealCards(p);
+		System.out.println(roomService.dealCards(p));
 		//return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
 	}
 	
