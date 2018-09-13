@@ -19,12 +19,15 @@ import com.revature.beans.Account;
 import com.revature.beans.FormData;
 import com.revature.beans.User;
 import com.revature.service.AccountService;
+import com.revature.service.UserService;
 
 @Controller("accountController")
 public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private UserService userService;
 
 	// login path
 	@GetMapping(value = "/")
@@ -41,6 +44,8 @@ public class AccountController {
 		System.out.println(data);
 		Account a = new Account(data.getUsername(),data.getPassword());
 		accountService.addAccount(a);
+		User u = new User(data.getFirstName(),data.getLastName(),a);
+		userService.addUser(u);
 		ResponseEntity<String> resp = null;
 		return resp;
 	}

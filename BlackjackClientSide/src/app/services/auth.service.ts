@@ -11,7 +11,7 @@ import { Account } from '../models/account';
 export class AuthService {
 
   private loggedIn = (localStorage.getItem("currentUser"))? new BehaviorSubject<boolean>(true) :new BehaviorSubject<boolean>(false);
-
+  
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
