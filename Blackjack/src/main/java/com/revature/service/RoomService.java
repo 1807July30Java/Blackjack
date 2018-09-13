@@ -53,13 +53,14 @@ public class RoomService {
 		}
 	}
 	
-	public void joinRoom(User u) {
+	public Player joinRoom(User u) {
 		
 		Room r = findRoom();
 		
 		Player p = new Player(u, r);
 		
 		rr.savePlayerToRoom(p);
+		return p;
 		
 	}
 	
