@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { Account } from '../models/account';
+import { User } from '../models/user';
 
 
 @Injectable({
@@ -11,10 +12,16 @@ import { Account } from '../models/account';
 export class AuthService {
 
   private loggedIn = (localStorage.getItem("currentUser"))? new BehaviorSubject<boolean>(true) :new BehaviorSubject<boolean>(false);
+  private currentUser = new BehaviorSubject(JSON.parse(localStorage.getItem("currentUser")));
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
+
+  get whoseCurrentUser(){
+    return this.currentUser.asObservable();
+  }
+
   constructor(private http: HttpClient) { }
 
   login(account:Account){
@@ -23,6 +30,7 @@ export class AuthService {
       if(user){
         this.loggedIn.next(true);
         localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUser.next(user);
       } 
       console.log(user);
       return user;
@@ -31,6 +39,7 @@ export class AuthService {
   logout(){
     this.loggedIn.next(false);
     localStorage.removeItem('currentUser')
+    this.currentUser.next(null);
   }
 
 }
