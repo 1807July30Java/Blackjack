@@ -24,6 +24,7 @@ export class PlayComponent implements OnInit {
     this.playService.startGame();
   }
   readyUp(){
+    console.log("about to run Players in game");
     this.playService.playersInGame(JSON.parse(localStorage.getItem("currentUser")));
   }
 }
