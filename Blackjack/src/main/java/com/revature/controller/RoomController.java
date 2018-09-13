@@ -48,6 +48,15 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/test", consumes="application/json")//added
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public ResponseEntity<String> test() {
+		// find a room for the player
+		//roomService.joinRoom(u); 
+		return new ResponseEntity<>("working", HttpStatus.OK);
+	}
+	
 	
 	@GetMapping("/all")
 	@ResponseBody
