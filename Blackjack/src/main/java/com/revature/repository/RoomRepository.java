@@ -99,13 +99,18 @@ public class RoomRepository {
 	
 	}
 	
-	public void dealCards(Player p2) {
+	public List<Card> dealCards(Player p2) {
 		Session s = sessionFactory.getCurrentSession();
 		Player p = (Player) s.get(Player.class, 4);
 		
-		List<Card> playerHand = p.getPlayerHand();
+		List<Card> playerHand = new ArrayList<Card>();
+		try {
+			playerHand = p.getPlayerHand();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
  		
-		int roomId = p.getGameRoom().getId();
+		//int roomId = p.getGameRoom().getId();
 		
 		
 		if(playerHand == null) {
@@ -113,7 +118,7 @@ public class RoomRepository {
 		}
 		
 		
-		Query q = s.createQuery("from Card c where c.room.id = 6 and c.player = null");
+		Query q = s.createQuery("from Card c where c.room.id = 4 and c.player = null");
 		//q.setParameter("roomIdVar", roomId);
 		Card c1 = (Card)q.list().get(0);
 		Card c2 = (Card)q.list().get(1);
@@ -126,8 +131,13 @@ public class RoomRepository {
 		
 		p.setPlayerHand(playerHand);
 		
+		System.out.println(c1);
+		System.out.println(c2);
+		
 		//System.out.print(p);
 		s.update(p);
+		
+		return playerHand;
 		
 	}
 
