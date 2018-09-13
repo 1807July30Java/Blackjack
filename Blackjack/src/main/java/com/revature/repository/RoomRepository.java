@@ -1,5 +1,6 @@
 package com.revature.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -97,21 +98,37 @@ public class RoomRepository {
 		return (int) s.save(p);
 	
 	}
-		/*
-	public List<Card> dealCards() {
+	
+	public void dealCards(Player p2) {
 		Session s = sessionFactory.getCurrentSession();
+		Player p = (Player) s.get(Player.class, 4);
 		
-		Query q 
-		
-		
-		List<Card> theRoomDeck = getAllCards();
-		List<Card> playerHand = null;
-		
+		List<Card> playerHand = p.getPlayerHand();
+ 		
+		int roomId = p.getGameRoom().getId();
 		
 		
+		if(playerHand == null) {
+			playerHand = new ArrayList<Card>();
+		}
 		
 		
-		return playerHand;
+		Query q = s.createQuery("from Card c where c.room.id = 6 and c.player = null");
+		//q.setParameter("roomIdVar", roomId);
+		Card c1 = (Card)q.list().get(0);
+		Card c2 = (Card)q.list().get(1);
+		
+		c1.setPlayer(p);
+		c2.setPlayer(p);
+		
+		playerHand.add(c1);
+		playerHand.add(c2);
+		
+		p.setPlayerHand(playerHand);
+		
+		//System.out.print(p);
+		s.update(p);
+		
 	}
-*/
+
 }

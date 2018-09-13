@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,11 +29,12 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 	
-	//@GetMapping(value = "/room")
-	@GetMapping(value="/joinRoom", consumes="application/json")//added
-	@ResponseStatus(HttpStatus.OK)//added
-	public String getStaticFlashcardPage(@RequestBody FormData data) {
-		User u = new User(data.getFirstname(), data.getLastname());
+	
+	@GetMapping(value = "/room")
+	//@PostMapping(value="/joinRoom", consumes="application/json")//added
+	//@ResponseStatus(HttpStatus.OK)//added
+	public String getStaticFlashcardPage() {
+		User u = new User("rish", "test");
 		// find a room for the player
 		roomService.joinRoom(u);
 		
@@ -61,15 +63,17 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.getAllPlayers(), HttpStatus.OK);
 	}
 	
-	/*
-	@RequestMapping(value="/dealCards", method = RequestMethod.POST, consumes="application/json")
+	
+	@GetMapping(value="/dealCards")//, consumes="application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody FormData data) {
+	//@RequestBody Player p
+	public void updatePlayerHandAtStart() {
 		//System.out.println(data);
-		Account a = new Account(data.getUsername(), data.getPassword());
-		return new ResponseEntity<>(roomService.dealCards(a), HttpStatus.OK);
+		Player p = new Player(4);
+		roomService.dealCards(p);
+		//return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
 	}
-	*/
+	
 	
 	
 	

@@ -74,11 +74,11 @@ public class RoomService {
 	public List<Card> getAllCards() {
 		return rr.getAllCards();
 	}
-/*
-	public List<Card> dealCards(Account a) {
+
+	public void dealCards(Player p) {
 		
-		return rr.dealCards();
+		rr.dealCards(p);
 		
 	}
-*/
+
 }
