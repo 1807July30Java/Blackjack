@@ -9,17 +9,21 @@ import { PlayService } from '../../services/play.service';
   styleUrls: ['./play.component.css']
 })
 export class PlayComponent implements OnInit {
-  
+
+
+  readyToPlay: Observable<boolean>;
   playing: Observable<boolean>;
 
   constructor(private router: Router, private playService: PlayService) { }
 
   ngOnInit() {
     this.playing = this.playService.isPlaying;
-    console.log(this.playing);
-    console.log("you are "+ this.playing);
+    this.readyToPlay = this.playService.isReadyToPlay;
   }
   startPlaying(){
     this.playService.startGame();
+  }
+  readyUp(){
+    this.playService.playersInGame(JSON.parse(localStorage.getItem("currentUser")));
   }
 }
