@@ -55,16 +55,16 @@ public class AccountController {
 
 	}
 
-	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
-	public ResponseEntity<User> handleAccountAutheticationFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
-		System.out.println("form params received " + formParams);
-		Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
+	public ResponseEntity<User> handleAccountAutheticationFormRequest(@RequestBody Account account) {
+		System.out.println("form params received " + account);
+		//Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
 		
 		ResponseEntity<User> resp = null;
 		
-			if (accountService.authentication(a)){
-				User u = accountService.getUserByAccount(a);
+			if (accountService.authentication(account)){
+				User u = accountService.getUserByAccount(account);
 				resp = new ResponseEntity<>(u, HttpStatus.OK);
 				
 			}

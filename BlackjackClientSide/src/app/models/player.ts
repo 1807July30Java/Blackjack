@@ -8,4 +8,5 @@ export class Player {
     lastName: string;
     user: User;
     gameRoom: Room;
+    isDealer: number;
 }

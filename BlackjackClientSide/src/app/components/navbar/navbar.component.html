@@ -18,7 +18,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li *ngIf="!(isLoggedIn | async)"><a routerLink="login"><button class="btn">Login/Register</button></a></li>
-          <li *ngIf="isLoggedIn | async"><a routerLInk="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+          <li *ngIf="isLoggedIn | async"><button class="btn" (click)="logoutButt()">Logout<i class="fas fa-sign-out-alt"></i></button></li>
         </ul>
       </div>
     </nav>
