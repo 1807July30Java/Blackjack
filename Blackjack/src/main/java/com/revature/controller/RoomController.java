@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.revature.beans.Account;
 import com.revature.beans.Card;
-import com.revature.beans.FormData;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
 import com.revature.beans.User;
@@ -64,14 +60,14 @@ public class RoomController {
 	}
 	
 	
-	@GetMapping(value="/dealCards")//, consumes="application/json")
-	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value="/dealCards", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	//@RequestBody Player p
-	public void updatePlayerHandAtStart() {
+	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody Player p) {
 		//System.out.println(data);
-		Player p = new Player(4);
-		System.out.println(roomService.dealCards(p));
-		//return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+		//System.out.println(roomService.dealCards(p));
+		return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
 	}
 	
 	
