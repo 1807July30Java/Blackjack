@@ -19,12 +19,16 @@ import com.revature.beans.Account;
 import com.revature.beans.FormData;
 import com.revature.beans.User;
 import com.revature.service.AccountService;
+import com.revature.service.UserService;
 
 @Controller("accountController")
 public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private UserService userService;
 
 	// login path
 	@GetMapping(value = "/")
@@ -40,7 +44,9 @@ public class AccountController {
 	public ResponseEntity<String> addAccount(@RequestBody FormData data) {
 		System.out.println(data);
 		Account a = new Account(data.getUsername(),data.getPassword());
-		accountService.addAccount(a);
+		int startingBalance = 1000;
+		User u = new User(data.getFirstName(), data.getLastName(), startingBalance, a);
+		userService.addUser(u);
 		ResponseEntity<String> resp = null;
 		return resp;
 	}
@@ -55,16 +61,16 @@ public class AccountController {
 
 	}
 
-	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@RequestMapping(value = "/checkAuthentication", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
-	public ResponseEntity<User> handleAccountAutheticationFormRequest(@RequestBody MultiValueMap<String, String> formParams) {
-		System.out.println("form params received " + formParams);
-		Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
+	public ResponseEntity<User> handleAccountAutheticationFormRequest(@RequestBody Account account) {
+		System.out.println("form params received " + account);
+		//Account a = new Account(formParams.getFirst("username"), formParams.getFirst("password"));
 		
 		ResponseEntity<User> resp = null;
 		
-			if (accountService.authentication(a)){
-				User u = accountService.getUserByAccount(a);
+			if (accountService.authentication(account)){
+				User u = accountService.getUserByAccount(account);
 				resp = new ResponseEntity<>(u, HttpStatus.OK);
 				
 			}
