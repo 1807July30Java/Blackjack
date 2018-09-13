@@ -32,8 +32,12 @@ public class User implements Serializable {
 		this.balance = balance;
 		this.account = account;
 	}
-	
-	
+
+	public User(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public User(String firstName, String lastName, Account account) {
 		super();
