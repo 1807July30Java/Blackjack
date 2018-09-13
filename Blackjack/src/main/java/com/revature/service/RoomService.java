@@ -53,13 +53,20 @@ public class RoomService {
 		}
 	}
 	
-	public void joinRoom(User u) {
+	public List<Player> joinRoom(User u) {
 		
 		Room r = findRoom();
 		
 		Player p = new Player(u, r);
+		Player dealer = new Player(r, 1);
 		
 		rr.savePlayerToRoom(p);
+		rr.savePlayerToRoom(dealer);
+		
+		List<Player> players = new ArrayList<>();
+		players.add(p);
+		players.add(dealer);
+		return players;
 		
 	}
 	
@@ -75,10 +82,19 @@ public class RoomService {
 		return rr.getAllCards();
 	}
 
-	public void dealCards(Player p) {
+	public List<Card> dealCards(Player p) {
 		
-		rr.dealCards(p);
+		return rr.dealCards(p);
 		
+	}
+
+	public Card hit(Player p) {
+		return rr.getHitCard(p);
+	}
+
+
+	public List<Card> stay(Player p) {
+		return rr.updateDealerHand(p);
 	}
 
 }

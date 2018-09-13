@@ -73,6 +73,16 @@ public class Player implements Serializable {
 		this.user = user;
 		this.gameRoom = gameRoom;
 	}
+	
+	
+
+	public Player(Room gameRoom, int isDealer) {
+		super();
+		this.gameRoom = gameRoom;
+		this.isDealer = isDealer;
+	}
+
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="playerIdSequence")
@@ -80,7 +90,7 @@ public class Player implements Serializable {
 	@Column(name="PLAYER_ID")
 	private int id;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	List<Card> playerHand;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
@@ -131,5 +141,7 @@ public class Player implements Serializable {
 		return "Player [id=" + id + ", playerHand=" + playerHand + ", user=" + user + ", gameRoom=" + gameRoom
 				+ ", isDealer=" + isDealer + "]";
 	}
+
+	
 	
 }

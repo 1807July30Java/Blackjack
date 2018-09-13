@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.revature.beans.Account;
 import com.revature.beans.Card;
-import com.revature.beans.FormData;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
 import com.revature.beans.User;
@@ -29,7 +26,7 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 	
-	
+	/*
 	@GetMapping(value = "/room")
 	//@PostMapping(value="/joinRoom", consumes="application/json")//added
 	//@ResponseStatus(HttpStatus.OK)//added
@@ -39,6 +36,16 @@ public class RoomController {
 		roomService.joinRoom(u);
 		
 		return "forward:/static/room.html";
+	}
+	*/
+	
+	@PostMapping(value="/joinRoom", consumes="application/json")//added
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public ResponseEntity<List<Player>> getStaticFlashcardPage(@RequestBody User u) {
+		// find a room for the player
+		roomService.joinRoom(u); 
+		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	
 	
@@ -64,18 +71,37 @@ public class RoomController {
 	}
 	
 	
-	@GetMapping(value="/dealCards")//, consumes="application/json")
-	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value="/dealPlayerCards", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	//@RequestBody Player p
-	public void updatePlayerHandAtStart() {
-		//System.out.println(data);
-		Player p = new Player(4);
-		roomService.dealCards(p);
-		//return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+	public ResponseEntity<List<Card>> updatePlayerHandAtStart(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/dealDealerCards", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<List<Card>> updateDealerHandAtStart(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.dealCards(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/stay", consumes="application/json")
+	@ResponseBody
+	public ResponseEntity<List<Card>> stay(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.stay(p), HttpStatus.OK);
 	}
 	
 	
 	
+	@PostMapping(value="/hit", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<Card> playerHit(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.hit(p), HttpStatus.OK);
+	}
 	
 	/*
 	@RequestMapping(value = "/dealCardsAtStart")

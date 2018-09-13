@@ -1,2 +1,45 @@
-<app-dealer-hand></app-dealer-hand>
-<app-player-hand></app-player-hand>
+<div *ngIf="!(readyToPlay | async)">
+    <div *ngIf="!(playing | async)" class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center"><button (click)="readyUp()">Ready Up</button></div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<div *ngIf="readyToPlay | async">
+    <div *ngIf="!(playing | async)" class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center"><button (click)="startPlaying()">Start Game</button></div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<div *ngIf="playing | async">
+    <h2 class="text-center">Dealer Hand</h2>
+    <div class="jumbotron">
+        <ul class="text-center list-inline hand">
+            <li class="list-inline-item">asdf</li>
+            <li class="list-inline-item">asdf</li>
+        </ul>
+    </div>
+    <h2 class="text-center">Your Hand</h2>
+    <div class="jumbotron">
+        <ul class="text-center list-inline hand">
+            <li class="list-inline-item">asdf</li>
+            <li class="list-inline-item">asfd</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary">Hit</button>
+            <button class="btn btn-secondary">Stay</button>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center">good luck friend</div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
