@@ -169,7 +169,7 @@ public class RoomRepository {
 		return new Card(c1.getId(), c1.getSuit(), c1.getVal());
 	}
 
-	public int getDealerScore(List<Card> dealerHand) {
+	public int getHandScore(List<Card> dealerHand) {
 
 		int score = 0;
 
@@ -224,7 +224,7 @@ public class RoomRepository {
 		System.out.println("Pgetplayerhand" + p.getPlayerHand());
 		System.out.println(playerHand);
 		
-		int score = getDealerScore(playerHand);
+		int score = getHandScore(playerHand);
 
 		List<Card> returnHand = new ArrayList<Card>();
 		// get cards until you hit score>=16
@@ -238,11 +238,31 @@ public class RoomRepository {
 			playerHand.add(c);
 			p.setPlayerHand(playerHand);
 
-			score = getDealerScore(playerHand);
+			score = getHandScore(playerHand);
 			counterCard++;
 		}
 		s.update(p);
 		return returnHand;
+	}
+
+	public Integer getHandValue(Player p) {
+		Session s = sessionFactory.getCurrentSession();
+		p = (Player) s.get(Player.class, p.getId());
+		
+		List<Card> playerHand = new ArrayList<Card>();
+		try {
+			playerHand = p.getPlayerHand();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		Set<Card> hs = new HashSet<>();
+		hs.addAll(playerHand);
+		playerHand.clear();
+		playerHand.addAll(hs);
+		
+		
+		return getHandScore(playerHand);
 	}
 
 }

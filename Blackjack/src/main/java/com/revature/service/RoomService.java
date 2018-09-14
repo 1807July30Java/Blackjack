@@ -97,4 +97,8 @@ public class RoomService {
 		return rr.updateDealerHand(p);
 	}
 
+	public Integer getHandValue(Player p) {
+		return rr.getHandValue(p);
+	}
+
 }

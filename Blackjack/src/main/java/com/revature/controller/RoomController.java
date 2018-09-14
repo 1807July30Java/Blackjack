@@ -102,6 +102,14 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.hit(p), HttpStatus.OK);
 	}
 	
+	@PostMapping(value="/handValue", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<Integer> handValue(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.getHandValue(p), HttpStatus.OK);
+	}
+	
 	/*
 	@RequestMapping(value = "/dealCardsAtStart")
 	@ResponseBody
