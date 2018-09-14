@@ -178,9 +178,9 @@ public class RoomRepository {
 		for (Card card : dealerHand) {
 			if (card.getVal() == 1) {
 				aceCount++;
+			}else {
+				score += card.getValue(false);
 			}
-
-			score += card.getValue(false);
 		}
 		
 		for (int i = 0; i < aceCount; i++) { //for all our aces
