@@ -8,7 +8,7 @@
 <div *ngIf="readyToPlay | async">
     <div *ngIf="!(playing | async)" class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4 text-center"><button (click)="startPlaying()">Start Game</button></div>
+        <div class="col-md-4 text-center"><button [disabled]="loading | async" (click)="startPlaying()">Start Game</button></div>
         <div class="col-md-4"></div>
     </div>
 </div>

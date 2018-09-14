@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { PlayService } from '../../services/play.service';
+import { Card } from '../../models/card';
 
 @Component({
   selector: 'app-play',
@@ -10,9 +11,11 @@ import { PlayService } from '../../services/play.service';
 })
 export class PlayComponent implements OnInit {
 
-
+  loading = new BehaviorSubject<boolean>(false);
   readyToPlay: Observable<boolean>;
   playing: Observable<boolean>;
+  playerHand: Observable<Array<Card>>;
+  dealerHand: Observable<Array<Card>>;
 
   constructor(private router: Router, private playService: PlayService) { }
 
@@ -21,13 +24,21 @@ export class PlayComponent implements OnInit {
     this.readyToPlay = this.playService.isReadyToPlay;
   }
   startPlaying() {
-    this.playService.startGame();
+    this.playService.startGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+      data => {
+        this.playerHand = this.playService.yourHand;
+        this.dealerHand = this.playService.theirHand;
+      },
+      error => {
+        //This is where i'd put my alert service... IF I HAD ONE!
+      });
   }
   readyUp() {
     console.log("about to run Players in game");
+    this.loading = new BehaviorSubject<boolean>(true);
     this.playService.playersInGame(JSON.parse(localStorage.getItem("currentUser"))).subscribe(
       data => {
-        console.log("ur a penis");
+        this.loading = new BehaviorSubject<boolean>(false);
       },
       error => {
         //This is where i'd put my alert service... IF I HAD ONE!

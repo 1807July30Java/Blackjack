@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { Player } from '../models/player';
+import { Card } from '../models/card';
 
 
 @Injectable({
@@ -15,6 +16,9 @@ export class PlayService {
   //private currPlayer = new BehaviorSubject(JSON.parse(localStorage.getItem("currentUser")));
   private ready = new BehaviorSubject<boolean>(false);
 
+  private playerHand = new BehaviorSubject<Array<Card>>([]);
+  private dealerHand = new BehaviorSubject<Array<Card>>([]);
+
   get isPlaying() {
     return this.playin.asObservable();
   }
@@ -23,10 +27,23 @@ export class PlayService {
     return this.ready.asObservable();
   }
 
+  get yourHand(){
+    return this.playerHand.asObservable();
+  }
+  get theirHand(){
+    return this.dealerHand.asObservable();
+  }
+
   constructor(private http: HttpClient) { }
 
-  startGame() {
+  startGame(player:Player) {
     this.playin.next(true);
+    return this.http.post<any>('/Blackjack/play/dealPlayerCards', player).pipe(map(user => {
+      if (user) {
+        console.log(user);
+      }
+      return user;
+    }));
     //sessionStorage
   }
 
@@ -48,12 +65,13 @@ export class PlayService {
     */
     return this.http.post<any>('/Blackjack/play/joinRoom', u).pipe(map(user => {
       if (user) {
-        console.log("asfdfdsafdsafdsafdsa");
-        localStorage.setItem('currentplayer', JSON.stringify(user));
+        console.log(user[0]);
+        console.log(user[1]);
+        localStorage.setItem('currentplayer', JSON.stringify(user[0]));
+        localStorage.setItem('currentdealer', JSON.stringify(user[1]));
       }
       console.log(user);
       return user;
     }));
-
   }
 }
