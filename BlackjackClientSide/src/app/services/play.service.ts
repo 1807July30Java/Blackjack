@@ -27,20 +27,32 @@ export class PlayService {
     return this.ready.asObservable();
   }
 
-  get yourHand(){
+  get yourHand() {
     return this.playerHand.asObservable();
   }
-  get theirHand(){
+  get theirHand() {
     return this.dealerHand.asObservable();
   }
 
   constructor(private http: HttpClient) { }
 
-  startGame(player:Player) {
+  dealPlayer(player: Player) {
+    console.log("sending player id =" + player.id);
     this.playin.next(true);
     return this.http.post<any>('/Blackjack/play/dealPlayerCards', player).pipe(map(user => {
       if (user) {
-        console.log(user);
+        this.playerHand.next(user);
+      }
+      return user;
+    }));
+    //sessionStorage
+  }
+  dealDealer(player: Player) {
+    console.log("sending player id =" + player.id);
+    this.playin.next(true);
+    return this.http.post<any>('/Blackjack/play/dealDealerCards', player).pipe(map(user => {
+      if (user) {
+        this.dealerHand.next(user);
       }
       return user;
     }));
@@ -71,6 +83,29 @@ export class PlayService {
         localStorage.setItem('currentdealer', JSON.stringify(user[1]));
       }
       console.log(user);
+      return user;
+    }));
+  }
+
+  showMeTheMoney(player: Player) {
+    let hand = this.playerHand.getValue();
+    return this.http.post<any>('/Blackjack/play/hit', player).pipe(map(user => {
+      if (user) {
+        hand.push(user);
+        this.playerHand.next(hand);
+      }
+      return user;
+    }));
+  }
+
+  stayHereBoyo(player: Player){
+    let hand = this.dealerHand.getValue();
+    console.log(player);
+    return this.http.post<any>('/Blackjack/play/stay', player).pipe(map(user => {
+      if (user) {
+        hand.concat(user);
+        this.dealerHand.next(hand);
+      }
       return user;
     }));
   }

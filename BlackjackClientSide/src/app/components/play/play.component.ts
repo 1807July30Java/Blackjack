@@ -17,6 +17,8 @@ export class PlayComponent implements OnInit {
   playerHand: Observable<Array<Card>>;
   dealerHand: Observable<Array<Card>>;
 
+  unicodeHeart = "";
+
   constructor(private router: Router, private playService: PlayService) { }
 
   ngOnInit() {
@@ -24,14 +26,26 @@ export class PlayComponent implements OnInit {
     this.readyToPlay = this.playService.isReadyToPlay;
   }
   startPlaying() {
-    this.playService.startGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+    console.log("start Playing");
+    this.loading = new BehaviorSubject<boolean>(true);
+    this.playService.dealPlayer(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
       data => {
+        console.log("this is what was logged as playerHand=" + this.playerHand);
         this.playerHand = this.playService.yourHand;
-        this.dealerHand = this.playService.theirHand;
+        this.playService.dealDealer(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
+          data => {
+            console.log("this is what was logged as playerHand=" + this.dealerHand);
+            this.dealerHand = this.playService.theirHand;
+          },
+          error => {
+            //This is where i'd put my alert service... IF I HAD ONE!
+          });
       },
       error => {
         //This is where i'd put my alert service... IF I HAD ONE!
       });
+
+    this.loading = new BehaviorSubject<boolean>(false);
   }
   readyUp() {
     console.log("about to run Players in game");
@@ -43,6 +57,28 @@ export class PlayComponent implements OnInit {
       error => {
         //This is where i'd put my alert service... IF I HAD ONE!
 
+      });
+  }
+  hit(){
+    console.log("hitting");
+    this.playService.showMeTheMoney(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+      data => {
+        this.playerHand = this.playService.yourHand;
+        console.log("this is what was logged as playerHand=" + this.playerHand);
+      },
+      error => {
+        //This is where i'd put my alert service... IF I HAD ONE!
+      });
+  }
+  stay(){
+    console.log("staying");
+    this.playService.stayHereBoyo(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
+      data => {
+        this.dealerHand = this.playService.theirHand;
+        console.log("this is what was logged as dealerHand=" + this.dealerHand);
+      },
+      error => {
+        //This is where i'd put my alert service... IF I HAD ONE!
       });
   }
 }
