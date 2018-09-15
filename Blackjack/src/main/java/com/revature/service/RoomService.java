@@ -105,4 +105,8 @@ public class RoomService {
 		return rr.getHandValue(p);
 	}
 
+	public String setWinner(Player p) {
+		return rr.setWinner(p);
+	}
+
 }

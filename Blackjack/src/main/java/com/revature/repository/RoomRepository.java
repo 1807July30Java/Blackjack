@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.beans.Card;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
+import com.revature.beans.User;
 
 @Repository(value = "roomRepository")
 @Transactional
@@ -268,6 +269,33 @@ public class RoomRepository {
 		
 		
 		return getHandScore(playerHand);
+	}
+	
+	public String deleteRoom(Room r) {
+		Session s = sessionFactory.getCurrentSession();
+		r = (Room) s.get(Room.class, r.getId());
+		
+		for(Player playerInRoom : r.getPlayersInRoom()) {
+			s.delete(playerInRoom);
+		}
+		
+		s.delete(r);
+		
+		return "You win!";
+	}
+
+	public String setWinner(Player p) {
+		Session s = sessionFactory.getCurrentSession();
+		p = (Player) s.get(Player.class, p.getId());
+		
+		Query q = s.createQuery("from Room where id = :roomIdVar");
+		q.setParameter("roomIdVar", p.getGameRoom().getId());
+		Room r = (Room) q.list().get(0);
+		
+		s.delete(r);
+			
+		return "You Win";
+		
 	}
 
 }
