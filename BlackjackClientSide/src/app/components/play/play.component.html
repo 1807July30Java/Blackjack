@@ -1,22 +1,30 @@
+<!-- Ready Up-->
 <div *ngIf="!(readyToPlay | async)">
-    <div *ngIf="!(playing | async)" class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 text-center"><button  class="btn btn-success" (click)="readyUp()">Ready Up</button></div>
-        <div class="col-md-4"></div>
+    <div *ngIf="!(winner | async)">
+        <div *ngIf="!(playing | async)" class="row">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center"><button class="btn btn-success" (click)="readyUp()">Ready Up</button></div>
+            <div class="col-md-4"></div>
+
+        </div>
     </div>
 </div>
+<!-- Start Game-->
 <div *ngIf="readyToPlay | async">
     <div *ngIf="!(playing | async)" class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4 text-center"><button class="btn btn-success" [disabled]="loading | async" (click)="startPlaying()">Start Game</button></div>
+        <div class="col-md-4 text-center"><button class="btn btn-success" [disabled]="loading | async" (click)="startPlaying()">Start
+                Game</button></div>
         <div class="col-md-4"></div>
     </div>
 </div>
+<!--Play Field-->
 <div *ngIf="playing | async">
     <h2 class="text-center">Dealer Hand</h2>
     <div class="jumbotron">
         <div *ngIf="loading | async">Loading...</div>
-        <ul class="text-center list-inline hand" >
+        <ul class="text-center list-inline hand">
             <li class="list-inline-item" *ngFor="let card of dealerHand | async">{{card.val}}{{card.suit}}</li>
         </ul>
     </div>
@@ -41,5 +49,17 @@
         <div class="col-md-4"></div>
         <div class="col-md-4 text-center">good luck friend</div>
         <div class="col-md-4"></div>
+    </div>
+</div>
+<!-- Reset Button for when game ends-->
+<div *ngIf="!(readyToPlay | async)">
+    <div *ngIf="winner | async">
+        <div *ngIf="!(playing | async)" class="row">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center"><button class="btn btn-success" (click)="resetti()">Reset</button></div>
+            <div class="col-md-4"></div>
+
+        </div>
     </div>
 </div>

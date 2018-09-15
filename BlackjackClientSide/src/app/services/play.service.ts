@@ -13,11 +13,16 @@ import { Card } from '../models/card';
 export class PlayService {
 
   private playin = new BehaviorSubject<boolean>(false);
-  //private currPlayer = new BehaviorSubject(JSON.parse(localStorage.getItem("currentUser")));
+
   private ready = new BehaviorSubject<boolean>(false);
 
   private playerHand = new BehaviorSubject<Array<Card>>([]);
   private dealerHand = new BehaviorSubject<Array<Card>>([]);
+
+  private playerHandValue = 0;
+  private dealerHandValue = 0;
+
+  private winner = new BehaviorSubject<string>(null);
 
   get isPlaying() {
     return this.playin.asObservable();
@@ -34,6 +39,16 @@ export class PlayService {
     return this.dealerHand.asObservable();
   }
 
+  get yaHandVal(){
+    return this.playerHandValue;
+  }
+  get theyHandVal(){
+    return this.dealerHandValue;
+  }
+
+  get winnah(){
+    return this.winner.asObservable();
+  }
   constructor(private http: HttpClient) { }
 
   dealPlayer(player: Player) {
@@ -100,18 +115,57 @@ export class PlayService {
 
   stayHereBoyo(player: Player) {
     let hand = this.dealerHand.getValue();
-    console.log(player.id);
+    //console.log(player.id);
     return this.http.post<any>('/Blackjack/play/stay', player).pipe(map(user => {
       if (user) {
-        console.log("new cards ="+user);
+        //console.log("new cards ="+user);
         hand = hand.concat(user);
-        //hand.push(user);
         this.dealerHand.next(hand);
-        console.log("dealerHand is now "+ this.dealerHand.getValue());
+        //console.log("dealerHand is now "+ this.dealerHand.getValue());
 
       }
       return user;
     }));
   }
 
+  yourHandValue(player: Player) {
+    return this.http.post<any>('/Blackjack/play/handValue', player).pipe(map(user => {
+      if (user) {
+        this.playerHandValue = user;
+      }
+      return user;
+    }));
+  }
+  theirHandValue(player: Player) {
+    return this.http.post<any>('/Blackjack/play/handValue', player).pipe(map(user => {
+      if (user) {
+        this.dealerHandValue = user;
+      }
+      return user;
+    }));
+  }
+  endGame(winner: Player){
+    return this.http.post<any>('/Blackjack/play/end', winner).pipe(map(user => {
+      if (user) {
+        this.playin.next(false);
+        if(winner.user){
+          this.winner.next('You');
+        } else {
+          this.winner.next('Dealer');
+        }
+      }
+      return user;
+    }));
+  }
+  reset() {
+    this.playin.next(false);
+    this.ready.next(false);
+    this.playerHand.next([]);
+    this.dealerHand.next([]);
+    this.playerHandValue = 0;
+    this.dealerHandValue = 0;
+    this.winner.next(null);
+    localStorage.removeItem('currentplayer');
+    localStorage.removeItem('currentdealer');
+  }
 }
