@@ -14,3 +14,5 @@ User Stories
 * A user can search for a table
 * Competitive tables have minimum bets 
   * Multi level competitive tables, High-Roller, etc.
+  
+  http://ec2-54-175-82-4.compute-1.amazonaws.com:8080/Blackjack/static/#/dash
