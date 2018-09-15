@@ -53,7 +53,7 @@ public class User implements Serializable {
 		this.balance = balance;
 		this.account = account;
 	}
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="userSequence")
 	@SequenceGenerator(allocationSize=1,name="userSequence",sequenceName="SQ_USER_PK")
@@ -119,8 +119,5 @@ public class User implements Serializable {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", balance=" + balance
 				+ ", account=" + account + "]";
 	}
-	
-	
-	
-	
+
 }

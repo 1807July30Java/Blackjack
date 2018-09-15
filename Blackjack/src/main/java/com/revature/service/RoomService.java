@@ -60,9 +60,13 @@ public class RoomService {
 		Player p = new Player(u, r);
 		Player dealer = new Player(r, 1);
 		
-		rr.savePlayerToRoom(p);
-		rr.savePlayerToRoom(dealer);
-		
+		int pid = rr.savePlayerToRoom(p);
+		int did = rr.savePlayerToRoom(dealer);
+//		System.out.println("saved Player Id =" +pid);
+//		System.out.println("saved Player Id =" +did);
+//		System.out.println("returning Player Id =" +p.getId());
+//		System.out.println("returning Dealer Id =" +dealer.getId());
+//		
 		List<Player> players = new ArrayList<>();
 		players.add(p);
 		players.add(dealer);
@@ -95,6 +99,14 @@ public class RoomService {
 
 	public List<Card> stay(Player p) {
 		return rr.updateDealerHand(p);
+	}
+
+	public Integer getHandValue(Player p) {
+		return rr.getHandValue(p);
+	}
+
+	public String setWinner(Player p) {
+		return rr.setWinner(p);
 	}
 
 }
