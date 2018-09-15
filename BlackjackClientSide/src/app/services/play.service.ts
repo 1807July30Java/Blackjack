@@ -100,7 +100,7 @@ export class PlayService {
 
   stayHereBoyo(player: Player){
     let hand = this.dealerHand.getValue();
-    console.log(player);
+    console.log(player.id);
     return this.http.post<any>('/Blackjack/play/stay', player).pipe(map(user => {
       if (user) {
         hand.concat(user);
