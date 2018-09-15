@@ -115,7 +115,7 @@ export class PlayComponent implements OnInit {
 
                 });
             } else {
-              if (this.dealahHandValue > this.playahHandValue) {
+              if (this.dealahHandValue >= this.playahHandValue) {
                 this.playService.endGame(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
                   data => {
                     this.winner = this.playService.winnah;
