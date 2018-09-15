@@ -284,7 +284,7 @@ public class RoomRepository {
 		return "You win!";
 	}
 
-	public String setWinner(Player p) {
+	public Integer setWinner(Player p) {
 		Session s = sessionFactory.getCurrentSession();
 		p = (Player) s.get(Player.class, p.getId());
 		
@@ -294,7 +294,7 @@ public class RoomRepository {
 		
 		s.delete(r);
 			
-		return "You Win";
+		return 1;
 		
 	}
 
