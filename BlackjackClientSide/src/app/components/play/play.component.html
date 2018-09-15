@@ -63,6 +63,17 @@
         </div>
     </div>
 </div>
+<div *ngIf="!(readyToPlay | async)">
+    <div *ngIf="winner | async">
+        <div *ngIf="!(playing | async)" class="row">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">Your Hand: {{playahHandValue}} Dealer Hand: {{dealahHandValue}}</div>
+            <div class="col-md-4"></div>
+
+        </div>
+    </div>
+</div>
 <!-- Reset Button for when game ends-->
 <div *ngIf="!(readyToPlay | async)">
     <div *ngIf="winner | async">
