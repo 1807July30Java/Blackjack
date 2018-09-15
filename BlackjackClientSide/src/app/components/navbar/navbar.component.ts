@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  title = "Blackjack Online";
+  title = "&spades;&hearts;Blackjack Online&diams;&clubs;";
 
   isLoggedIn: Observable<boolean>;
 

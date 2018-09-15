@@ -16,8 +16,9 @@ export class PlayComponent implements OnInit {
   playing: Observable<boolean>;
   playerHand: Observable<Array<Card>>;
   dealerHand: Observable<Array<Card>>;
-
-  unicodeHeart = "";
+  playahHandValue: number;
+  dealahHandValue: number;
+  winner: Observable<string>;
 
   constructor(private router: Router, private playService: PlayService) { }
 
@@ -36,6 +37,13 @@ export class PlayComponent implements OnInit {
           data => {
             console.log("this is what was logged as playerHand=" + this.dealerHand);
             this.dealerHand = this.playService.theirHand;
+            this.playService.yourHandValue(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+              data => {
+                this.playahHandValue = this.playService.yaHandVal;
+                console.log(this.playahHandValue);
+              }, error => {
+
+              });
           },
           error => {
             //This is where i'd put my alert service... IF I HAD ONE!
@@ -59,26 +67,76 @@ export class PlayComponent implements OnInit {
 
       });
   }
-  hit(){
-    console.log("hitting");
-    this.playService.showMeTheMoney(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+  hit() {
+    if (this.playahHandValue <= 21) {
+      console.log("hitting");
+      this.playService.showMeTheMoney(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+        data => {
+          this.playerHand = this.playService.yourHand;
+          //Get hand value
+          this.playService.yourHandValue(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+            data => {
+              this.playahHandValue = this.playService.yaHandVal;
+              if (this.playahHandValue > 21) {
+                this.playService.endGame(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
+                  data => {
+                    this.winner = this.playService.winnah;
+                  }, error => {
+
+                  });
+              }
+            }, error => {
+
+            });
+        },
+        error => {
+          //This is where i'd put my alert service... IF I HAD ONE!
+        });
+    }
+  }
+  stay() {
+    console.log("staying");
+    this.playService.stayHereBoyo(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
       data => {
-        this.playerHand = this.playService.yourHand;
-        console.log("this is what was logged as playerHand=" + this.playerHand);
+        this.dealerHand = this.playService.theirHand;
+        //get their hand value
+        this.playService.theirHandValue(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
+          data => {
+            this.dealahHandValue = this.playService.theyHandVal;
+            //Dealer busts (you stayed so you're under 21)
+            if (this.dealahHandValue > 21) {
+              this.playService.endGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+                data => {
+                  this.winner = this.playService.winnah;
+                }, error => {
+
+                });
+            } else {
+              if (this.dealahHandValue > this.playahHandValue) {
+                this.playService.endGame(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
+                  data => {
+                    this.winner = this.playService.winnah;
+                  }, error => {
+
+                  });
+              } else {
+                this.playService.endGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
+                  data => {
+                    this.winner = this.playService.winnah;
+                  }, error => {
+
+                  });
+              }
+            }
+          }, error => {
+
+          });
       },
       error => {
         //This is where i'd put my alert service... IF I HAD ONE!
       });
   }
-  stay(){
-    console.log("staying");
-    this.playService.stayHereBoyo(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
-      data => {
-        this.dealerHand = this.playService.theirHand;
-        console.log("this is what was logged as dealerHand=" + this.dealerHand);
-      },
-      error => {
-        //This is where i'd put my alert service... IF I HAD ONE!
-      });
+  resetti() {
+    this.playService.reset();
   }
 }
