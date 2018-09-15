@@ -90,13 +90,13 @@ public class Player implements Serializable {
 	@Column(name="PLAYER_ID")
 	private int id;
 	
-	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
 	List<Card> playerHand;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROOM_ID")
 	private Room gameRoom;
 	

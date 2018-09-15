@@ -44,7 +44,6 @@ public class RoomController {
 	@ResponseBody
 	public ResponseEntity<List<Player>> getStaticFlashcardPage(@RequestBody User u) {
 		// find a room for the player
-		roomService.joinRoom(u); 
 		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	
@@ -93,8 +92,6 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.stay(p), HttpStatus.OK);
 	}
 	
-	
-	
 	@PostMapping(value="/hit", consumes="application/json")
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
@@ -103,20 +100,20 @@ public class RoomController {
 		return new ResponseEntity<>(roomService.hit(p), HttpStatus.OK);
 	}
 	
-	/*
-	@RequestMapping(value = "/dealCardsAtStart")
+	@PostMapping(value="/handValue", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public ResponseEntity<String> updatePlayerHandAtStart() {
-		ResponseEntity<String> resp = null;
-		try {
-			roomService.dealCards();
-			resp = new ResponseEntity<>("ACCOUNT CREATED SUCCESSFULLY", HttpStatus.OK);
-		} catch (Exception e) {
-			resp = new ResponseEntity<>("FAILED TO CREATE ACCOUNT", HttpStatus.BAD_REQUEST);
-			e.printStackTrace();
-		}
-		return resp;
+	//@RequestBody Player p
+	public ResponseEntity<Integer> handValue(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.getHandValue(p), HttpStatus.OK);
 	}
-	*/
+	
+	@PostMapping(value="/end", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<String> winner(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.setWinner(p), HttpStatus.OK);
+	}
 	
 }

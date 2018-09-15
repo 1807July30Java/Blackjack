@@ -58,11 +58,11 @@ public class Card {
 	@Column(name = "VAL")
 	private int val;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PLAYER_ID")
 	private Player player;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "ROOM_ID")
 	private Room room;
 
