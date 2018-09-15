@@ -44,7 +44,7 @@ public class RoomController {
 	@ResponseBody
 	public ResponseEntity<List<Player>> getStaticFlashcardPage(@RequestBody User u) {
 		// find a room for the player
-		roomService.joinRoom(u); 
+		//roomService.joinRoom(u); 
 		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
 	}
 	

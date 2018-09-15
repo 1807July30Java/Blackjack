@@ -100,6 +100,7 @@ public class RoomRepository {
 
 	public List<Card> dealCards(Player p) {
 		Session s = sessionFactory.getCurrentSession();
+		System.out.println(p.getId());
 		p = (Player) s.get(Player.class, p.getId());
 
 		List<Card> playerHand = new ArrayList<Card>();
@@ -137,6 +138,8 @@ public class RoomRepository {
 		List<Card> playerHand2 = new ArrayList<Card>();
 		playerHand2.add(new Card(c1.getId(), c1.getSuit(), c1.getVal()));
 		playerHand2.add(new Card(c2.getId(), c2.getSuit(), c2.getVal()));
+		System.out.println("sending card: "+c1.getId());
+		System.out.println("sending card: "+c2.getId());
 		return playerHand2;
 
 	}
@@ -210,6 +213,7 @@ public class RoomRepository {
 		q.setParameter("roomIdVar", roomId);
 
 		// check current hand (2 cards)
+		System.out.println(playerHand);
 		int score = getDealerScore(playerHand);
 
 		List<Card> returnHand = new ArrayList<Card>();
