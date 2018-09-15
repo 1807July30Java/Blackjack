@@ -44,7 +44,7 @@ public class Account implements Serializable {
 	@Column(name="ACCOUNT_ID")
 	private int id;
 	
-	@Column(name="USERNAME", nullable = false, length = 30)
+	@Column(name="USERNAME", nullable = false, length = 30,unique = true)
 	private String username;
 
 
