@@ -44,17 +44,7 @@ public class RoomController {
 	@ResponseBody
 	public ResponseEntity<List<Player>> getStaticFlashcardPage(@RequestBody User u) {
 		// find a room for the player
-		//roomService.joinRoom(u); 
 		return new ResponseEntity<>(roomService.joinRoom(u), HttpStatus.OK);
-	}
-	
-	@GetMapping(value="/test", consumes="application/json")//added
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public ResponseEntity<String> test() {
-		// find a room for the player
-		//roomService.joinRoom(u); 
-		return new ResponseEntity<>("working", HttpStatus.OK);
 	}
 	
 	
@@ -110,6 +100,14 @@ public class RoomController {
 	//@RequestBody Player p
 	public ResponseEntity<Card> playerHit(@RequestBody Player p) {
 		return new ResponseEntity<>(roomService.hit(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/handValue", consumes="application/json")
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	//@RequestBody Player p
+	public ResponseEntity<Integer> handValue(@RequestBody Player p) {
+		return new ResponseEntity<>(roomService.getHandValue(p), HttpStatus.OK);
 	}
 	
 	/*

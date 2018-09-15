@@ -98,15 +98,20 @@ export class PlayService {
     }));
   }
 
-  stayHereBoyo(player: Player){
+  stayHereBoyo(player: Player) {
     let hand = this.dealerHand.getValue();
     console.log(player.id);
     return this.http.post<any>('/Blackjack/play/stay', player).pipe(map(user => {
       if (user) {
-        hand.concat(user);
+        console.log("new cards ="+user);
+        hand = hand.concat(user);
+        //hand.push(user);
         this.dealerHand.next(hand);
+        console.log("dealerHand is now "+ this.dealerHand.getValue());
+
       }
       return user;
     }));
   }
+
 }

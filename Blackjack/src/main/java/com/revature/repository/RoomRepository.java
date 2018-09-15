@@ -1,7 +1,9 @@
 package com.revature.repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.beans.Account;
 import com.revature.beans.Card;
 import com.revature.beans.Player;
 import com.revature.beans.Room;
@@ -103,6 +104,8 @@ public class RoomRepository {
 		System.out.println(p.getId());
 		p = (Player) s.get(Player.class, p.getId());
 
+		System.out.println("Before:");
+		System.out.println(p.getPlayerHand());
 		List<Card> playerHand = new ArrayList<Card>();
 		try {
 			playerHand = p.getPlayerHand();
@@ -138,8 +141,10 @@ public class RoomRepository {
 		List<Card> playerHand2 = new ArrayList<Card>();
 		playerHand2.add(new Card(c1.getId(), c1.getSuit(), c1.getVal()));
 		playerHand2.add(new Card(c2.getId(), c2.getSuit(), c2.getVal()));
-		System.out.println("sending card: "+c1.getId());
-		System.out.println("sending card: "+c2.getId());
+
+		
+		System.out.println(p.getPlayerHand());
+
 		return playerHand2;
 
 	}
@@ -167,7 +172,7 @@ public class RoomRepository {
 		return new Card(c1.getId(), c1.getSuit(), c1.getVal());
 	}
 
-	public int getDealerScore(List<Card> dealerHand) {
+	public int getHandScore(List<Card> dealerHand) {
 
 		int score = 0;
 
@@ -176,9 +181,9 @@ public class RoomRepository {
 		for (Card card : dealerHand) {
 			if (card.getVal() == 1) {
 				aceCount++;
+			}else {
+				score += card.getValue(false);
 			}
-
-			score += card.getValue(false);
 		}
 		
 		for (int i = 0; i < aceCount; i++) { //for all our aces
@@ -206,6 +211,12 @@ public class RoomRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// only G-D knows how this works
+		Set<Card> hs = new HashSet<>();
+		hs.addAll(playerHand);
+		playerHand.clear();
+		playerHand.addAll(hs);
 
 		int roomId = p.getGameRoom().getId();
 
@@ -213,8 +224,12 @@ public class RoomRepository {
 		q.setParameter("roomIdVar", roomId);
 
 		// check current hand (2 cards)
+
+		System.out.println("Pgetplayerhand" + p.getPlayerHand());
 		System.out.println(playerHand);
-		int score = getDealerScore(playerHand);
+		
+		int score = getHandScore(playerHand);
+
 
 		List<Card> returnHand = new ArrayList<Card>();
 		// get cards until you hit score>=16
@@ -228,14 +243,31 @@ public class RoomRepository {
 			playerHand.add(c);
 			p.setPlayerHand(playerHand);
 
-			score = getDealerScore(playerHand);
+			score = getHandScore(playerHand);
 			counterCard++;
 		}
 		s.update(p);
-
-		// Once we know whether the dealer has an ace or not, we pass in hasAce and the
-		// dealer hand to update the dealer hand properly.
 		return returnHand;
+	}
+
+	public Integer getHandValue(Player p) {
+		Session s = sessionFactory.getCurrentSession();
+		p = (Player) s.get(Player.class, p.getId());
+		
+		List<Card> playerHand = new ArrayList<Card>();
+		try {
+			playerHand = p.getPlayerHand();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		Set<Card> hs = new HashSet<>();
+		hs.addAll(playerHand);
+		playerHand.clear();
+		playerHand.addAll(hs);
+		
+		
+		return getHandScore(playerHand);
 	}
 
 }
