@@ -112,7 +112,7 @@ public class RoomController {
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	//@RequestBody Player p
-	public ResponseEntity<String> winner(@RequestBody Player p) {
+	public ResponseEntity<Integer> winner(@RequestBody Player p) {
 		return new ResponseEntity<>(roomService.setWinner(p), HttpStatus.OK);
 	}
 	

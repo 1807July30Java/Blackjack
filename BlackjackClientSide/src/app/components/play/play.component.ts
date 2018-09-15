@@ -77,10 +77,12 @@ export class PlayComponent implements OnInit {
           this.playService.yourHandValue(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
             data => {
               this.playahHandValue = this.playService.yaHandVal;
+              console.log(this.playahHandValue);
               if (this.playahHandValue > 21) {
                 this.playService.endGame(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
                   data => {
                     this.winner = this.playService.winnah;
+                    this.endThatGame();
                   }, error => {
 
                   });
@@ -108,6 +110,7 @@ export class PlayComponent implements OnInit {
               this.playService.endGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
                 data => {
                   this.winner = this.playService.winnah;
+                  this.endThatGame();
                 }, error => {
 
                 });
@@ -116,6 +119,7 @@ export class PlayComponent implements OnInit {
                 this.playService.endGame(JSON.parse(localStorage.getItem("currentdealer"))).subscribe(
                   data => {
                     this.winner = this.playService.winnah;
+                    this.endThatGame();
                   }, error => {
 
                   });
@@ -123,6 +127,7 @@ export class PlayComponent implements OnInit {
                 this.playService.endGame(JSON.parse(localStorage.getItem("currentplayer"))).subscribe(
                   data => {
                     this.winner = this.playService.winnah;
+                    this.endThatGame();
                   }, error => {
 
                   });
@@ -135,6 +140,11 @@ export class PlayComponent implements OnInit {
       error => {
         //This is where i'd put my alert service... IF I HAD ONE!
       });
+  }
+  endThatGame(){
+    console.log("Ending Game");
+    this.playing = this.playService.isPlaying;
+    this.readyToPlay = this.playService.isReadyToPlay;
   }
   resetti() {
     this.playService.reset();

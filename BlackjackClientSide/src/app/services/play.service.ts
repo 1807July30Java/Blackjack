@@ -144,14 +144,21 @@ export class PlayService {
       return user;
     }));
   }
-  endGame(winner: Player){
-    return this.http.post<any>('/Blackjack/play/end', winner).pipe(map(user => {
+  endGame(winnah: Player){
+    return this.http.post<any>('/Blackjack/play/end', winnah).pipe(map(user => {
       if (user) {
+        console.log("lololol")
         this.playin.next(false);
-        if(winner.user){
+        if(winnah.user){
           this.winner.next('You');
+          console.log("you win");
+          this.playin.next(false);
+          this.ready.next(false);
         } else {
           this.winner.next('Dealer');
+          console.log("dealer wins");
+          this.playin.next(false);
+          this.ready.next(false);
         }
       }
       return user;
